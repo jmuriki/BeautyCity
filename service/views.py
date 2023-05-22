@@ -2,7 +2,6 @@ import os
 
 from django.shortcuts import render
 
-# Create your views here.
 
 def index(request, context=None):
 	return render(request, 'index.html', context)
@@ -21,6 +20,7 @@ def popup(request, context=None):
 
 
 def service(request, context=None):
+
 	return render(request, 'service.html', context)
 
 
