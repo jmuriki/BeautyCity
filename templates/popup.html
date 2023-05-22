@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+	<div class="authPopup popup">
+		<div class="popup__title authPopup__title">Войти по коду</div>
+		<p class="popup__text authPopup__text">Введите свой номер телефона, мы вышлем на него код</p>
+		<form action="#" class="authPopup__form">
+			<div class="contacts__form_inputBlock">
+				<input type="text" name="tel" class="contacts__form_iunput" placeholder="+7(999)999--99-99" required="">
+			</div>
+			<div class="contacts__form_checkboxBlock fic">
+				<input type="checkbox" class="contacts__form_checkbox" checked="">
+				<span class="contacts__form_checkboxBlock__intro">Я согласен(а) с политикой конфидециоальности</span>
+			</div>
+			<button type="submit" class="popup__btn authPopup__btn">Отправить</button>
+		</form>
+	</div>
+
+	<div class="confirmPopup popup">
+		<div class="popup__title confirmPopup__title">Подтвердите номер</div>
+		<p class="popup__text confirmPopup__text">Введите код, полученный по SMS на номер +7 (928) 164 48 60</p>
+		<div class="confirmPopup__number">
+			<input type="text" name="num1" class="tipsPopup__form_inputNum popup__input" placeholder="" required>
+			<input type="text" name="num2" class="tipsPopup__form_inputNum popup__input" placeholder="" required>
+			<input type="text" name="num3" class="tipsPopup__form_inputNum popup__input" placeholder="" required>
+			<input type="text" name="num4" class="tipsPopup__form_inputNum popup__input" placeholder="" required>
+
+		</div>
+		<div class="confirmPopup__sms">Если SMS не пришло вы можете <a href="#" class="popup__link">запросить код повторно</a></div>
+		<div class="confirmPopup__changeNumber">
+			<a href="#" class="confirmPopup__link popup__link">Изменить номер телефона</a>
+		</div>
+	</div>
+
+	<div class="tipsPopup popup">
+		<div class="popup__title tipsPopup__title">Чаевые</div>
+		<form action="#" class="tipsPopup__form">
+			<div class="tipsPopup__form_intro popup__intro">Введите сумму чаевых</div>
+			<input type="text" class="tipsPopup__form_input popup__input" placeholder="0.00" required>
+			<button class="tipsPopup__btn popup__btn">Далее</button>
+		</form>
+	</div>
+
+	<div class="paymentPopup popup">
+		<div class="popup__title paymentPopup__title">Оплата</div>
+		<form action="#" class="paymentPopup__form">
+			<div class="paymentPopup__form_intro popup__intro">номер карты</div>
+			<input type="text" name="tel" class="paymentPopup__form_input popup__input" placeholder="Введите номер" required>
+			<div class="paymentPopup__form_block fic">
+				<input type="text" name="mm" class="tipsPopup__form_inputMin popup__input" placeholder="ММ" required>
+				<input type="text" name="gg" class="tipsPopup__form_inputMin popup__input" placeholder="ГГ" required>
+			</div>
+			<div class="paymentPopup__form_elems fic">
+				<input type="text" name="fname" class="paymentPopup__form_inputMid popup__input" placeholder="Имя владельца" required>
+				<input type="text" name="cvc" class="tipsPopup__form_inputMin popup__input" placeholder="CVC" required>
+			</div>
+			<div class="paymentPopup__form_intro popup__intro">Ваш e-mail(необязательно)</div>
+			<input type="email" name="tel" class="paymentPopup__form_input popup__input" placeholder="pochta@mail.ru">
+			<button class="tipsPopup__btn popup__btn">Оплатить</button>
+		</form>
+	</div>
+
+	<div class="reviewPopup popup">
+		<div class="popup__title reviewPopup__title">Отзыв</div>
+		<form action="#" class="reviewPopup__form">
+			<input type="text" name="fname" class="paymentPopup__form_input popup__input" placeholder="Введите имя" required>
+			<div class="contacts__form_inputBlock">
+				<input type="text" name="tel" class="contacts__form_iunput" placeholder="+7(999)999--99-99" required="">
+			</div>
+			<input type="text" name="dateVis" class="paymentPopup__form_input popup__input" placeholder="Дата посещения" required>
+			<textarea name="popupTextarea" class="reviewPopup__form_textarea" placeholder="Текст отзыва"></textarea>
+			<div class="contacts__form_checkboxBlock fic">
+				<input type="checkbox" class="contacts__form_checkbox" checked>
+				<span class="contacts__form_checkboxBlock__intro">Я согласен(а) с политикой конфидециоальности</span>
+			</div>
+			<button class="tipsPopup__btn popup__btn">Оплатить</button>
+		</form>
+	</div>
+</body>
+</html>
