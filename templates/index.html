@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Beauty City</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="css/jquery.arcticmodal-0.3.css">
+	<link rel="stylesheet" href="css/simple.css">
+	<link rel="stylesheet" href="css/bootstrap-grid.min.css">
+	<link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+	<section id="mobMenu">
+			<div class="mobMenu">
+				<div class="container">
+				<div class="mobMenu__header">
+					<div class="row">
+						<div class="col-4 col-md-3">
+							<a href="/">
+								<img src="img/Logo.svg" alt="Logo" class="logo header__logo">
+							</a>
+						</div>
+						<div class="col-3 col-md-2">
+							<img src="img/x.svg" alt="x" class="mobMenuClose">
+						</div>
+					</div>
+				</div>
+				<div class="mobMenu__content">
+					<div class="row">
+						<div class="col-md-3">
+							<nav>
+								<ul class="mobMenu__menu">
+									<li class="mobMenu__menu_item">
+										<a href="#" class="mobMenu__menu_link">Мастера</a>
+									</li>
+									<li class="mobMenu__menu_item"><a href="#" class="mobMenu__menu_link">Услуги</a></li>
+									<li class="mobMenu__menu_item"><a href="#" class="mobMenu__menu_link">Отзывы</a></li>
+									<li class="mobMenu__menu_item"><a href="#" class="mobMenu__menu_link">Контакты</a></li>
+								</ul>
+							</nav>
+							<a href="#" class="mobMenu__account">Личный кабинет</a>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<button class="mobMenu__btn">Перезвоните мне</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<header id="header">
+		<div class="container">
+			<div class="header">
+				<div class="row">
+					<div class="col-2 col-md-2 mob">
+						<img src="img/hamburger.svg" alt="hamburger" class="header__mobMenu">
+					</div>
+					<div class="col-5 col-md-3 col-lg-2">
+						<a href="/">
+							<img src="img/Logo.svg" alt="Logo" class="logo header__logo">
+						</a>
+					</div>
+					<div class="col-md-5 ">
+						<nav>
+						<ul class="menu">
+							<li class="menu__item"><a href="#" class="menu__item_link">Мастера</a></li>
+							<li class="menu__item"><a href="#" class="menu__item_link">Услуги</a></li>
+							<li class="menu__item"><a href="#" class="menu__item_link">Отзывы</a></li>
+							<li class="menu__item"><a href="#" class="menu__item_link">Контакты</a></li>
+						</ul>
+					</nav>
+					</div>
+					<div class="col-2 col-md-2 col-lg-3">
+						<div class="header__block">
+						<a href="tel:+79179023800"><button class="header__block_btn">Перезвоните мне</button></a>
+						<div class="header__block_auth">
+							<img src="img/acc.svg" alt="account" class="header__account_img">
+							<span class="header__block_auth__intro">Войти</span>
+						</div>
+					</div>
+					</div>
+				</div>
+				
+				
+				
+			</div>
+		</div>
+	</header>
+	<section id="banner">
+		<div class="container">
+			<div class="banner">
+				<div class="row">
+					<div class="col-md-10 col-lg-7 col-xl-6">
+						<div class="banner__block">
+							<h1 class="banner__title">Запишись на первую услугу со <span class="yellow banner__title_discount">скидкой 50%</span></h1>
+							<div class="banner__elems">
+								<img src="img/persons.svg" alt="persons" class="banner__elems_img">
+								<p class="banner__elems_intro">
+									<span class="yellow banner__elems_over">Более 1 000</span>
+									довольных клиентов
+								</p>
+							</div>
+							<a href="service.html"><button class="banner__btn">Записаться</button></a>
+						</div>
+					</div>
+					<div class="col-md-12 col-lg-5">
+						<img src="img/bannerImg.svg" alt="bannerImg" class="banner__img">
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section id="salons">
+		<div class="container">
+			<div class="salons pb100">
+				<div class="salons__slider_arrows fic mob">
+					<div class="title">Наши салоны</div>
+					<div class="slider__arrows fic">
+						<div class="slider__arrows_arrow leftArrow">
+							<i class="arrowRight"></i>
+						</div>
+						<div class="slider__arrows_arrow rightArrow">
+							<i class="arrowLleft"></i>
+						</div>
+					</div>
+				</div>
+				<div class="title dec">Наши салоны</div>
+				<div class="row salonsSlider">
+					<div class="col-6 col-md-4 col-lg-4 col-xl-3">
+						<div class="salons__block">
+							<img src="img/salons/salon1.svg" alt="salon" class="salons__block_img">
+							<div class="salons__elems">
+								<div class="block__title salons__elems_title">BeautyCity Пушкинская</div>
+								<div class="salons__elems_light">ул. Пушкинская, д. 78А</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-6 col-md-4 col-lg-4 col-xl-3">
+						<div class="salons__block">
+							<img src="img/salons/salon2.svg" alt="salon" class="salons__block_img">
+							<div class="salons__elems">
+								<div class="block__title salons__elems_title">BeautyCity Ленина</div>
+								<div class="salons__elems_light">ул. Ленина, д. 211</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-6 col-md-4 col-lg-4 col-xl-3">
+						<div class="salons__block">
+							<img src="img/salons/salon3.svg" alt="salon" class="salons__block_img">
+							<div class="salons__elems">
+								<div class="salons__elems_title">BeautyCity Красная</div>
+								<div class="salons__elems_light">ул. Красная, д. 10</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-6 col-md-4 col-lg-4 col-xl-3 decVis">
+						<div class="salons__block">
+							<img src="img/salons/salon1.svg" alt="salon" class="salons__block_img">
+							<div class="salons__elems">
+								<div class="salons__elems_title">BeautyCity Красная</div>
+								<div class="salons__elems_light">ул. Красная, д. 10</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</section>
+	<section id="services">
+		<div class="container">
+			<div class="services pb100">
+				<div class="services__slider_arrows fic">
+					<div class="title">Услуги</div>
+					<div class="slider__arrows fic">
+						<div class="slider__arrows_arrow leftArrow">
+							<i class="arrowRight"></i>
+						</div>
+						<div class="slider__arrows_arrow rightArrow">
+							<i class="arrowLleft"></i>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row servicesSlider">
+					<div class="col-md-3">
+						<div class="cardBlock services__block">
+							<img src="img/services/service1.svg" alt="service" class="services__block_img">
+							<div class="services__elems">
+								<div class="services__elems_title">Дневной макияж</div>
+								<div class="services__elems_light">1 400 ₽</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="cardBlock services__block">
+							<img src="img/services/service2.svg" alt="service" class="services__block_img">
+							<div class="services__elems">
+								<div class="services__elems_title">Маникюр. Классический. Гель</div>
+								<div class="services__elems_light">2 000 ₽</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="cardBlock services__block">
+							<img src="img/services/service3.svg" alt="service" class="services__block_img">
+							<div class="services__elems">
+								<div class="services__elems_title">Укладка волос</div>
+								<div class="services__elems_light">1 500 ₽</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="cardBlock services__block">
+							<img src="img/services/service4.svg" alt="service" class="services__block_img">
+							<div class="services__elems">
+								<div class="services__elems_title">Укладка волос</div>
+								<div class="services__elems_light">3 000 ₽</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="cardBlock services__block">
+							<img src="img/services/service5.svg" alt="service" class="services__block_img">
+							<div class="services__elems">
+								<div class="services__elems_title">Педикюр</div>
+								<div class="services__elems_light">1 000 ₽</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="cardBlock services__block">
+							<img src="img/services/service6.svg" alt="service" class="services__block_img">
+							<div class="services__elems">
+								<div class="services__elems_title">Окрашивание волос</div>
+								<div class="services__elems_light">5 000 ₽</div>
+							</div>
+						</div>
+					</div>
+					
+
+				</div>
+			</div>
+		</div>
+	</section>
+	<section id="masters">
+		<div class="container">
+			<div class="masters pb100">
+				<div class="masters__slider_arrows fic">
+					<div class="title">Мастера</div>
+					<div class="slider__arrows fic">
+						<div class="slider__arrows_arrow leftArrow">
+							<i class="arrowRight"></i>
+						</div>
+						<div class="slider__arrows_arrow rightArrow">
+							<i class="arrowLleft"></i>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row mastersSlider">
+					<div class="col-md-3">
+						<div class="cardBlock masters__block">
+							<div class="masters__header fic">
+								<img src="img/masters/master1.svg" alt="master" class="masters__header_img">
+								<div class="masters__header_elmes">
+									<div class="masters__header_name">Елизавета Лапина</div>
+									<img src="img/rating.svg" alt="rating" class="masters__header_rating">
+									<div class="masters__header_reviews">24 отзыва</div>
+								</div>
+							</div>
+							<div class="masters__main">
+								<div class="masters__main_speciality">СПЕЦИАЛЬНОСТЬ:</div>
+								<div class="masters__main_intro">Мастер маникюра</div>
+							</div>
+							<div class="masters__footer fic">
+								<div class="masters__footer_block">
+									<div class="masters__footer_light">СТАЖ РАБОТЫ:</div>
+									<div class="masters__footer_num">3 г. 10 мес.</div>
+								</div>
+								<button class="masters__footer_btn">Записаться</button>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="cardBlock masters__block">
+							<div class="masters__header fic">
+								<img src="img/masters/master2.svg" alt="master" class="masters__header_img">
+								<div class="masters__header_elmes">
+									<div class="masters__header_name">Анастасия Сергеева</div>
+									<img src="img/rating.svg" alt="rating" class="masters__header_rating">
+									<div class="masters__header_reviews">96 отзывов</div>
+								</div>
+							</div>
+							<div class="masters__main">
+								<div class="masters__main_speciality">СПЕЦИАЛЬНОСТЬ:</div>
+								<div class="masters__main_intro">Парикмахер</div>
+							</div>
+							<div class="masters__footer fic">
+								<div class="masters__footer_block">
+									<div class="masters__footer_light">СТАЖ РАБОТЫ:</div>
+									<div class="masters__footer_num">4 г. 9 мес.</div>
+								</div>
+								<button class="masters__footer_btn">Записаться</button>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="cardBlock masters__block">
+							<div class="masters__header fic">
+								<img src="img/masters/master3.svg" alt="master" class="masters__header_img">
+								<div class="masters__header_elmes">
+									<div class="masters__header_name">Ева Колесова</div>
+									<img src="img/rating.svg" alt="rating" class="masters__header_rating">
+									<div class="masters__header_reviews">18 отзывов</div>
+								</div>
+							</div>
+							<div class="masters__main">
+								<div class="masters__main_speciality">СПЕЦИАЛЬНОСТЬ:</div>
+								<div class="masters__main_intro">Визажист</div>
+							</div>
+							<div class="masters__footer fic">
+								<div class="masters__footer_block">
+									<div class="masters__footer_light">СТАЖ РАБОТЫ:</div>
+									<div class="masters__footer_num">1 г. 2 мес.</div>
+								</div>
+								<button class="masters__footer_btn">Записаться</button>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="cardBlock masters__block">
+							<div class="masters__header fic">
+								<img src="img/masters/master4.svg" alt="master" class="masters__header_img">
+								<div class="masters__header_elmes">
+									<div class="masters__header_name">Мария Суворова</div>
+									<img src="img/rating.svg" alt="rating" class="masters__header_rating">
+									<div class="masters__header_reviews">32 отзыва</div>
+								</div>
+							</div>
+							<div class="masters__main">
+								<div class="masters__main_speciality">СПЕЦИАЛЬНОСТЬ:</div>
+								<div class="masters__main_intro">Стилист</div>
+							</div>
+							<div class="masters__footer fic">
+								<div class="masters__footer_block">
+									<div class="masters__footer_light">СТАЖ РАБОТЫ:</div>
+									<div class="masters__footer_num">1 г. 1 мес.</div>
+								</div>
+								<button class="masters__footer_btn">Записаться</button>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="cardBlock masters__block">
+							<div class="masters__header fic">
+								<img src="img/masters/master5.svg" alt="master" class="masters__header_img">
+								<div class="masters__header_elmes">
+									<div class="masters__header_name">Мария Максимова</div>
+									<img src="img/rating.svg" alt="rating" class="masters__header_rating">
+									<div class="masters__header_reviews">42 отзыва</div>
+								</div>
+							</div>
+							<div class="masters__main">
+								<div class="masters__main_speciality">СПЕЦИАЛЬНОСТЬ:</div>
+								<div class="masters__main_intro">Стилист</div>
+							</div>
+							<div class="masters__footer fic">
+								<div class="masters__footer_block">
+									<div class="masters__footer_light">СТАЖ РАБОТЫ:</div>
+									<div class="masters__footer_num">3 г. 1 мес.</div>
+								</div>
+								<button class="masters__footer_btn">Записаться</button>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="cardBlock masters__block">
+							<div class="masters__header fic">
+								<img src="img/masters/master6.svg" alt="master" class="masters__header_img">
+								<div class="masters__header_elmes">
+									<div class="masters__header_name">Майя Соболева</div>
+									<img src="img/rating.svg" alt="rating" class="masters__header_rating">
+									<div class="masters__header_reviews">32 отзыва</div>
+								</div>
+							</div>
+							<div class="masters__main">
+								<div class="masters__main_speciality">СПЕЦИАЛЬНОСТЬ:</div>
+								<div class="masters__main_intro">Визажист</div>
+							</div>
+							<div class="masters__footer fic">
+								<div class="masters__footer_block">
+									<div class="masters__footer_light">СТАЖ РАБОТЫ:</div>
+									<div class="masters__footer_num">1 г. 1 мес.</div>
+								</div>
+								<button class="masters__footer_btn">Записаться</button>
+							</div>
+						</div>
+					</div>
+					
+					
+
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section id="reviews">
+		<div class="container">
+			<div class="reviews pb100">
+				<div class="reviews__slider_arrows fic">
+					<div class="title">Отзывы</div>
+					<div class="slider__arrows fic">
+						<div class="slider__arrows_arrow leftArrow">
+							<i class="arrowRight"></i>
+						</div>
+						<div class="slider__arrows_arrow rightArrow">
+							<i class="arrowLleft"></i>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row reviewsSlider">
+					<div class="col-md-3">
+						<div class="reviews__block">
+							<div class="reviews__name">Светлана Г.</div>
+							<img src="img/rating.svg" alt="rating" class="reviews__header_rating">
+							<div class="reviews__block_text">
+								Отличное место для красоты, очень доброжелательный и отзывчивый персонал, девочки заботливые, аккуратные и большие профессионалы. Посещаю салон с самого начала, но он не теряет своей привлекательности, как в обслуживании.
+							</div>
+							<div class="reviews__block_date">12 ноября 2022</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="reviews__block">
+							<div class="reviews__name">Ольга Н.</div>
+							<img src="img/rating.svg" alt="rating" class="reviews__header_rating">
+							<div class="reviews__block_text">
+								Мне всё лень было отзыв писать, но вот "руки дошли". Несколько раз здесь стриглась, мастера звали, кажется, Катя. Все было отлично, приятная молодая женщина и по стрижке вопросов не было)
+							</div>
+							<div class="reviews__block_date">5 ноября 2022</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="reviews__block">
+							<div class="reviews__name">Ольга Н.</div>
+							<img src="img/rating.svg" alt="rating" class="reviews__header_rating">
+							<div class="reviews__block_text">
+								Мне всё лень было отзыв писать, но вот "руки дошли". Несколько раз здесь стриглась, мастера звали, кажется, Катя. Все было отлично, приятная молодая женщина и по стрижке вопросов не было)
+							</div>
+							<div class="reviews__block_date">5 ноября 2022</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="reviews__block">
+							<div class="reviews__name">Елена В.</div>
+							<img src="img/rating.svg" alt="rating" class="reviews__header_rating">
+							<div class="reviews__block_text">
+								Делала процедуру микротоки у мастера Светланы . Светлана внимательная, приветливая, ненавязчивая. Рекомендую и мастера, и процедуру. Еще делала бровки у Татьяны , я в восторге , брови просто идеально сдеданы
+							</div>
+							<div class="reviews__block_date">28 октября 2022</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="reviews__block">
+							<div class="reviews__name">Виктория Г.</div>
+							<img src="img/rating.svg" alt="rating" class="reviews__header_rating">
+							<div class="reviews__block_text">
+								Была на педикюре у Ольги. Очень понравилось. Все инструменты стерильные, упакованы в крафт-пакет. Для меня очень важно было. Оборудование новое.
+							</div>
+							<div class="reviews__block_date">13 октября 2022</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="reviews__block">
+							<div class="reviews__name">Анастасия Е.</div>
+							<img src="img/rating.svg" alt="rating" class="reviews__header_rating">
+							<div class="reviews__block_text">
+								Сегодня прокололи ушки дочке в этом салоне) Остались довольны обслуживанием и персоналом. Девочки очень приветливые и внимательные . Спасибо большое, всё понравилось)
+							</div>
+							<div class="reviews__block_date">8 октября 2022</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="reviews__block">
+							<div class="reviews__name">Алина Ц.</div>
+							<img src="img/rating.svg" alt="rating" class="reviews__header_rating">
+							<div class="reviews__block_text">
+								Отличный салон, сервис на самом высоком уровне, всем мастерам огромное уважение за труд, обязательно вернусь
+							</div>
+							<div class="reviews__block_date">1 октября 2022</div>
+						</div>
+					</div>
+					
+					
+					
+
+				</div>
+			</div>
+		</div>
+	</section>
+	<section id="contacts">
+		<div class="container">
+			<div class="contacts">
+				<div class="title contacts__title">Контакты</div>
+				<div class="row">
+					<div class="col-md-12 col-lg-4 col-xl-3">
+						<form action="#" class="contacts__form">
+							<div class="contacts__form_title">Оставьте заявку на консультацию</div>
+							<div class="contacts__form_block">
+								<input type="text" name="fname" class="contacts__form_iunput" placeholder="Введите имя" required>
+								<div class="contacts__form_inputBlock">
+									<input type="text" name="tel" class="contacts__form_iunput" placeholder="+7(999)999--99-99" required>
+								</div>
+							</div>
+							
+							<textarea name="contactsTextarea" class="contacts__form_textarea" placeholder="Вопрос(необязательно)"></textarea>
+							<div class="contacts__form_checkboxBlock fic">
+								<input type="checkbox" class="contacts__form_checkbox" checked>
+								<span class="contacts__form_checkboxBlock__intro">Я согласен(а) с политикой конфидециоальности</span>
+							</div>
+							<button type="submit" class="contacts__form_btn">Отправить</button>
+						</form>
+					</div>
+					<div class="col-md-12 col-lg-3">
+						<div class="contacts__locationBlock">
+							<div class="contacts__location fic">
+								<img src="img/location.svg" alt="location" class="contacts__location_icon">
+								<div class="contacts__location_info">
+									<div class="contacts__location_intro">ул. Пушкинская, д. 78А</div>
+								<div class="contacts__location_date">с 10:00 до 20:00  без выходных</div>
+								</div>
+							</div>
+							<div class="contacts__location fic">
+								<img src="img/location.svg" alt="location" class="contacts__location_icon">
+								<div class="contacts__location_info">
+									<div class="contacts__location_intro">ул. Красная, д. 10</div>
+								<div class="contacts__location_date">с 10:00 до 20:00  без выходных</div>
+								</div>
+							</div>
+							<div class="contacts__location fic">
+								<img src="img/location.svg" alt="location" class="contacts__location_icon">
+								<div class="contacts__location_info">
+									<div class="contacts__location_intro">ул. Ленина, д. 211</div>
+								<div class="contacts__location_date">с 10:00 до 20:00  без выходных</div>
+								</div>
+							</div>
+						</div>
+						<div class="contacts__block">
+							<div class="contacts__social">
+								<div class="contacts__social_title">соц. сети</div>
+								<div class="contacts__social_block fic">
+									<a href=""><img src="img/wa.svg" alt="wa" class="contacts__social_icon"></a>
+									<a href=""><img src="img/vk.svg" alt="vk" class="contacts__social_icon"></a>
+									<a href=""><img src="img/tg.svg" alt="tg" class="contacts__social_icon"></a>
+									<a href=""><img src="img/insta.svg" alt="insta" class="contacts__social_icon"></a>
+								</div>
+							</div>
+							<div class="contacts__info">
+								<div class="contacts__infoBlock">
+									<div class="contacts__info_title">контакты</div>
+									<a href="tel:+79179023800" class="contacts__info_tel">+7 (917) 902 38 00</a>
+								</div>
+								<a href="#" class="contacts__info_mail">hello@beauty.ru</a>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-12 col-lg-5 col-xl-6">
+						<div class="contacts__map">
+							<script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3Ab7c7d417e660dbf6565501ccc84acd33ec7588fd751ceabc6947e3e9b881e413&amp;lang=ru_RU&amp;scroll=true"></script>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<footer id="footer">
+		<div class="container">
+			<div class="footer">
+				<div class="footer__block">
+					<div class="row">
+						<div class="col-md-3 col-lg-2">
+							<a href="/"><img src="img/Logo.svg" alt="logo" class="footer__logo"></a>
+						</div>
+						<div class="col-md-5 minMobHide">
+							<nav>
+								<ul class="menu">
+									<li class="menu__item"><a href="#" class="menu__item_link">Мастера</a></li>
+									<li class="menu__item"><a href="#" class="menu__item_link">Услуги</a></li>
+									<li class="menu__item"><a href="#" class="menu__item_link">Отзывы</a></li>
+									<li class="menu__item"><a href="#" class="menu__item_link">Контакты</a></li>
+								</ul>
+							</nav>
+						</div>
+					</div>
+					<div class="footer__contact">
+						<div class="row">
+							<div class="col-md-4">
+								
+									<div class="footer__data">с 10:00 до 20:00  без выходных</div>
+									
+							</div>
+							<div class="col-md-3">
+								<a href="tel:+79179023800" class="contacts__info_tel">+7 (917) 902 38 00</a>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-5 minMobShow">
+								<nav>
+									<ul class="menu">
+										<li class="menu__item"><a href="#" class="menu__item_link">Мастера</a></li>
+										<li class="menu__item"><a href="#" class="menu__item_link">Услуги</a></li>
+										<li class="menu__item"><a href="#" class="menu__item_link">Отзывы</a></li>
+										<li class="menu__item"><a href="#" class="menu__item_link">Контакты</a></li>
+									</ul>
+								</nav>
+							</div>
+						</div>
+					</div>
+					<div class="hr"></div>
+					<div class="footer__bottom">
+						<div class="row">
+							<div class="col-md-4 col-lg-3">
+								<a href="#" class="footer__link">Политика конфиденциальности</a>
+							</div>
+							<div class="col-md-3">
+								<div class="footer__copy">2022. Все права защищены</div>
+							</div>
+							<div class="col-md-3 col-lg-2">
+								<div class="footer__social fic">
+									<a href=""><img src="img/waGray.svg" alt="wa" class="contacts__social_icon"></a>
+									<a href=""><img src="img/vkGray.svg" alt="vk" class="contacts__social_icon"></a>
+									<a href=""><img src="img/tgGray.svg" alt="tg" class="contacts__social_icon"></a>
+									<a href=""><img src="img/instaGray.svg" alt="insta" class="contacts__social_icon"></a>
+								</div>
+							</div>
+						</div>
+						
+						
+						
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<div style="display: none;">
+		<div class="box-modal authPopup popup" id="authModal">
+			<div class="box-modal_close arcticmodal-close"><img src="img/x.svg" alt="x"></div>
+			<div class="popup__title authPopup__title">Войти по коду</div>
+			<p class="popup__text authPopup__text">Введите свой номер телефона, мы вышлем на него код</p>
+			<form action="#" class="authPopup__form">
+				<div class="contacts__form_inputBlock">
+					<input type="text" name="tel" class="contacts__form_iunput" placeholder="+7(999)999--99-99" required="">
+				</div>
+				<div class="contacts__form_checkboxBlock fic">
+					<input type="checkbox" class="contacts__form_checkbox" checked="">
+					<span class="contacts__form_checkboxBlock__intro">Я согласен(а) с политикой конфидециоальности</span>
+				</div>
+				<button type="submit" class="popup__btn authPopup__btn">Отправить</button>
+			</form>
+		</div>
+	</div>
+	<div style="display: none;">
+		<div class="box-modal confirmPopup popup" id="confirmModal">
+			<div class="box-modal_close arcticmodal-close"><img src="img/x.svg" alt="x"></div>
+			<div class="popup__title confirmPopup__title">Подтвердите номер</div>
+			<p class="popup__text confirmPopup__text">Введите код, полученный по SMS на номер +7 (928) 164 48 60</p>
+			<div class="confirmPopup__number">
+				<input type="text" name="num1" class="tipsPopup__form_inputNum popup__input" placeholder="" required="">
+				<input type="text" name="num2" class="tipsPopup__form_inputNum popup__input" placeholder="" required="">
+				<input type="text" name="num3" class="tipsPopup__form_inputNum popup__input" placeholder="" required="">
+				<input type="text" name="num4" class="tipsPopup__form_inputNum popup__input" placeholder="" required="">
+
+			</div>
+			<div class="confirmPopup__sms">Если SMS не пришло вы можете <a href="#" class="popup__link">запросить код повторно</a></div>
+			<div class="confirmPopup__changeNumber">
+				<a href="#" class="confirmPopup__link popup__link">Изменить номер телефона</a>
+			</div>
+		</div>
+	</div>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js" integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="js/air-datepicker.js"></script>
+	<script src="js/jquery.arcticmodal-0.3.min.js"></script>
+	<script src="js/main.js"></script>
+</body>
+</html>
