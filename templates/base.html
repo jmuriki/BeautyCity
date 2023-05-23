@@ -36,7 +36,7 @@
 
 {% block menu %}
 
-	{% if not user.is_authenticated %}
+	{% if user.is_authenticated %}
 
 		<section id="mobMenu">
 			<div class="mobMenu accMenu">
