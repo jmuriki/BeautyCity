@@ -1,21 +1,19 @@
 <!DOCTYPE html>
-
+{% extends 'base.html' %}
 {% load static %}
 
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Beauty City</title>
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+{% block links %}
+
 	<link rel="stylesheet" href="{% static 'css/bootstrap-grid.min.css' %}">
 	<link rel="stylesheet" href="{% static 'css/air-datepicker.css' %}">
 	<link rel="stylesheet" href="{% static 'css/jquery.arcticmodal-0.3.css' %}">
 	<link rel="stylesheet" href="{% static 'css/simple.css' %}">
 	<link rel="stylesheet" href="{% static 'css/main.css' %}">
-</head>
+
+{% endblock %}
+
+{% block content %}
+
 <body class="notesPage">
 	<section id="mobMenu">
 			<div class="mobMenu accMenu">
@@ -397,76 +395,11 @@
 			</div>
 		</div>
 	</section> 
-	<footer id="footer">
-		<div class="container">
-			<div class="footer">
-				<div class="footer__block">
-					<div class="row">
-						<div class="col-md-3 col-lg-2">
-							<a href="/"><img src="{% static 'img/Logo.svg' %}" alt="logo" class="footer__logo"></a>
-						</div>
-						<div class="col-md-5 minMobHide">
-							<nav>
-								<ul class="menu">
-									<li class="menu__item"><a href="#" class="menu__item_link">Мастера</a></li>
-									<li class="menu__item"><a href="#" class="menu__item_link">Услуги</a></li>
-									<li class="menu__item"><a href="#" class="menu__item_link">Отзывы</a></li>
-									<li class="menu__item"><a href="#" class="menu__item_link">Контакты</a></li>
-								</ul>
-							</nav>
-						</div>
-					</div>
-					<div class="footer__contact">
-						<div class="row">
-							<div class="col-md-4">
-								
-									<div class="footer__data">с 10:00 до 20:00  без выходных</div>
-									
-							</div>
-							<div class="col-md-3">
-								<a href="tel:+79179023800" class="contacts__info_tel">+7 (917) 902 38 00</a>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-5 minMobShow">
-								<nav>
-									<ul class="menu">
-										<li class="menu__item"><a href="#" class="menu__item_link">Мастера</a></li>
-										<li class="menu__item"><a href="#" class="menu__item_link">Услуги</a></li>
-										<li class="menu__item"><a href="#" class="menu__item_link">Отзывы</a></li>
-										<li class="menu__item"><a href="#" class="menu__item_link">Контакты</a></li>
-									</ul>
-								</nav>
-							</div>
-						</div>
-					</div>
-					<hr class="hr"></hr>
-					<div class="footer__bottom">
-						<div class="row">
-							<div class="col-md-4 col-lg-3">
-								<a href="#" class="footer__link">Политика конфиденциальности</a>
-							</div>
-							<div class="col-md-3">
-								<div class="footer__copy">2022. Все права защищены</div>
-							</div>
-							<div class="col-md-3 col-lg-2">
-								<div class="footer__social fic">
-									<a href=""><img src="{% static 'img/waGray.svg' %}" alt="wa" class="contacts__social_icon"></a>
-									<a href=""><img src="{% static 'img/vkGray.svg' %}" alt="vk" class="contacts__social_icon"></a>
-									<a href=""><img src="{% static 'img/tgGray.svg' %}" alt="tg" class="contacts__social_icon"></a>
-									<a href=""><img src="{% static 'img/instaGray.svg' %}" alt="insta" class="contacts__social_icon"></a>
-								</div>
-							</div>
-						</div>
-						
-						
-						
-					</div>
-					
-				</div>
-			</div>
-		</div>
-	</footer>
+
+{% endblock %}
+
+{% block hidden %}
+
 	<div style="display: none;">
 		<div class="box-modal paymentPopup popup" id="paymentModal">
 			<div class="box-modal_close arcticmodal-close"><img src="{% static 'img/x.svg' %}" alt="x"></div>
@@ -520,10 +453,5 @@
 			</form>
 		</div>
 	</div>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js" integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<script src="{% static 'js/air-datepicker.js' %}"></script>
-	<script src="{% static 'js/jquery.arcticmodal-0.3.min.js' %}"></script>
-	<script src="{% static 'js/main.js' %}"></script>
-</body>
-</html>
+
+{% endblock %}
