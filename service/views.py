@@ -24,7 +24,7 @@ def services(request, context=None):
 
 
 def admin(request, context=None):
-	return render(request, 'admin.html', context)
+	return render(request, 'admin_front.html', context)
 
 
 def notes(request, context=None):
