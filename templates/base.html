@@ -16,6 +16,170 @@
 
 </head>
 
+{% block body %}
+
+<body>
+
+{% endblock %}
+
+{% block menu %}
+
+	{% if user.is_authenticated %}
+
+		<section id="mobMenu">
+			<div class="mobMenu accMenu">
+				<div class="container">
+					<div class="mobMenu__header">
+						<div class="row">
+							<div class="col-4 col-md-3">
+								<a href="/">
+									<img src="{% static 'img/Logo.svg' %}" alt="Logo" class="logo header__logo">
+								</a>
+							</div>
+							<div class="col-3 col-md-2">
+								<img src="{% static 'img/x.svg' %}" alt="x" class="mobMenuClose">
+							</div>
+						</div>
+					</div>
+					<div class="mobMenu__content">
+						<div class="row">
+							<div class="col-md-3">
+								<nav>
+									<div class="accaunt__left">
+								<div class="accaunt__ava fic">
+									<img src="{% static 'img/avatars/1.svg' %}" alt="avatar" class="accaunt__ava_img">
+									<span class="accaunt__ava_name">Алиса И.</span>
+								</div>
+								<div class="accaunt__settings fic">
+									<a href="#" class="accaunt__settings_intro">Изменить профиль</a>
+									<a href="#" class="accaunt__settings_out">Выйти</a>
+								</div>
+								<nav>
+									<div class="accaunt__menu_title">МЕНЮ</div>
+									<ul class="accaunt__menu">
+										<li class="accaunt__menu_item active">
+											<a href="#" class="accaunt__menu_item__link">
+												<div class="accaunt__menu_block fic">
+													<img src="{% static 'img/icons/list.svg' %}" alt="icon" class="accaunt__menu_icon">
+													<span class="accaunt__menu_item__link_intro">Мои записи</span>
+												</div>	
+											</a>
+										</li>
+										<li class="accaunt__menu_item">
+											<a href="#" class="accaunt__menu_item__link">
+												<div class="accaunt__menu_block fic">
+													<img src="{% static 'img/icons/settings.svg' %}" alt="icon" class="accaunt__menu_icon">
+													<span class="accaunt__menu_item__link_intro">Настройки</span>
+												</div>	
+											</a>
+										</li>
+										<li class="accaunt__menu_item">
+											<a href="#" class="accaunt__menu_item__link">
+												<div class="accaunt__menu_block fic">
+													<img src="{% static 'img/icons/tex.svg' %}" alt="icon" class="accaunt__menu_icon">
+													<span class="accaunt__menu_item__link_intro">Тех. поддержка</span>
+												</div>	
+											</a>
+										</li>
+										<li class="accaunt__menu_item">
+											<a href="#" class="accaunt__menu_item__link">
+												<div class="accaunt__menu_block fic">
+													<img src="{% static 'img/icons/pay.svg' %}" alt="icon" class="accaunt__menu_icon">
+													<span class="accaunt__menu_item__link_intro">Платежи</span>
+												</div>	
+											</a>
+										</li>
+									</ul>
+								</nav>
+							</div>
+								</nav>
+
+	{% else %}
+
+		<section id="mobMenu">
+		<div class="mobMenu">
+			<div class="container">
+				<div class="mobMenu__header">
+					<div class="row">
+						<div class="col-4 col-md-3">
+							<a href="/">
+								<img src="{% static 'img/Logo.svg' %}" alt="Logo" class="logo header__logo">
+							</a>
+						</div>
+						<div class="col-3 col-md-2">
+							<img src="{% static 'img/x.svg' %}" alt="x" class="mobMenuClose">
+						</div>
+					</div>
+				</div>
+				<div class="mobMenu__content">
+					<div class="row">
+						<div class="col-md-3">
+
+	{% endif %}
+
+{% endblock %}
+
+							<nav>
+								<ul class="mobMenu__menu">
+									<li class="mobMenu__menu_item">
+										<a href="#" class="mobMenu__menu_link">Мастера</a>
+									</li>
+									<li class="mobMenu__menu_item"><a href="#" class="mobMenu__menu_link">Услуги</a></li>
+									<li class="mobMenu__menu_item"><a href="#" class="mobMenu__menu_link">Отзывы</a></li>
+									<li class="mobMenu__menu_item"><a href="#" class="mobMenu__menu_link">Контакты</a></li>
+								</ul>
+							</nav>
+							<a href="#" class="mobMenu__account">Личный кабинет</a>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<button class="mobMenu__btn">Перезвоните мне</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<header id="header">
+		<div class="container">
+			<div class="header">
+				<div class="row">
+					<div class="col-2 col-md-2 mob">
+						<img src="{% static 'img/hamburger.svg' %}" alt="hamburger" class="header__mobMenu">
+					</div>
+					<div class="col-5 col-md-3 col-lg-2">
+						<a href="/">
+							<img src="{% static 'img/Logo.svg' %}" alt="Logo" class="logo header__logo">
+						</a>
+					</div>
+					<div class="col-md-5 ">
+						<nav>
+						<ul class="menu">
+							<li class="menu__item"><a href="#" class="menu__item_link">Мастера</a></li>
+							<li class="menu__item"><a href="#" class="menu__item_link">Услуги</a></li>
+							<li class="menu__item"><a href="#" class="menu__item_link">Отзывы</a></li>
+							<li class="menu__item"><a href="#" class="menu__item_link">Контакты</a></li>
+						</ul>
+					</nav>
+					</div>
+					<div class="col-2 col-md-2 col-lg-3">
+						<div class="header__block">
+						<a href="tel:+79179023800"><button class="header__block_btn">Перезвоните мне</button></a>
+						<div class="header__block_auth">
+							<img src="{% static 'img/acc.svg' %}" alt="account" class="header__account_img">
+							<!-- <img src="{% static 'img/avatars/1.svg' %}" alt="account" class="header__account_img"> -->
+							<span class="header__block_auth__intro">Войти</span>
+							<!-- <span class="header__block_auth__intro">Алиса И.</span> -->
+						</div>
+					</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+
 {% block content %}
 {% endblock %}
 
