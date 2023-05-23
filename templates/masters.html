@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+	<section id="masters">
+		<div class="container">
+			<div class="masters pb100">
+				<div class="masters__slider_arrows fic">
+					<div class="title">Мастера</div>
+					<div class="slider__arrows fic">
+						<div class="slider__arrows_arrow leftArrow">
+							<i class="arrowRight"></i>
+						</div>
+						<div class="slider__arrows_arrow rightArrow">
+							<i class="arrowLleft"></i>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row mastersSlider">
+					<div class="col-md-3">
+						<div class="cardBlock masters__block">
+							<div class="masters__header fic">
+								<img src="{% static 'img/masters/master1.svg' %}" alt="master" class="masters__header_img">
+								<div class="masters__header_elmes">
+									<div class="masters__header_name">Елизавета Лапина</div>
+									<img src="{% static 'img/rating.svg' %}" alt="rating" class="masters__header_rating">
+									<div class="masters__header_reviews">24 отзыва</div>
+								</div>
+							</div>
+							<div class="masters__main">
+								<div class="masters__main_speciality">СПЕЦИАЛЬНОСТЬ:</div>
+								<div class="masters__main_intro">Мастер маникюра</div>
+							</div>
+							<div class="masters__footer fic">
+								<div class="masters__footer_block">
+									<div class="masters__footer_light">СТАЖ РАБОТЫ:</div>
+									<div class="masters__footer_num">3 г. 10 мес.</div>
+								</div>
+								<button class="masters__footer_btn">Записаться</button>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="cardBlock masters__block">
+							<div class="masters__header fic">
+								<img src="{% static 'img/masters/master2.svg' %}" alt="master" class="masters__header_img">
+								<div class="masters__header_elmes">
+									<div class="masters__header_name">Анастасия Сергеева</div>
+									<img src="{% static 'img/rating.svg' %}" alt="rating" class="masters__header_rating">
+									<div class="masters__header_reviews">96 отзывов</div>
+								</div>
+							</div>
+							<div class="masters__main">
+								<div class="masters__main_speciality">СПЕЦИАЛЬНОСТЬ:</div>
+								<div class="masters__main_intro">Парикмахер</div>
+							</div>
+							<div class="masters__footer fic">
+								<div class="masters__footer_block">
+									<div class="masters__footer_light">СТАЖ РАБОТЫ:</div>
+									<div class="masters__footer_num">4 г. 9 мес.</div>
+								</div>
+								<button class="masters__footer_btn">Записаться</button>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="cardBlock masters__block">
+							<div class="masters__header fic">
+								<img src="{% static 'img/masters/master3.svg' %}" alt="master" class="masters__header_img">
+								<div class="masters__header_elmes">
+									<div class="masters__header_name">Ева Колесова</div>
+									<img src="{% static 'img/rating.svg' %}" alt="rating" class="masters__header_rating">
+									<div class="masters__header_reviews">18 отзывов</div>
+								</div>
+							</div>
+							<div class="masters__main">
+								<div class="masters__main_speciality">СПЕЦИАЛЬНОСТЬ:</div>
+								<div class="masters__main_intro">Визажист</div>
+							</div>
+							<div class="masters__footer fic">
+								<div class="masters__footer_block">
+									<div class="masters__footer_light">СТАЖ РАБОТЫ:</div>
+									<div class="masters__footer_num">1 г. 2 мес.</div>
+								</div>
+								<button class="masters__footer_btn">Записаться</button>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="cardBlock masters__block">
+							<div class="masters__header fic">
+								<img src="{% static 'img/masters/master4.svg' %}" alt="master" class="masters__header_img">
+								<div class="masters__header_elmes">
+									<div class="masters__header_name">Мария Суворова</div>
+									<img src="{% static 'img/rating.svg' %}" alt="rating" class="masters__header_rating">
+									<div class="masters__header_reviews">32 отзыва</div>
+								</div>
+							</div>
+							<div class="masters__main">
+								<div class="masters__main_speciality">СПЕЦИАЛЬНОСТЬ:</div>
+								<div class="masters__main_intro">Стилист</div>
+							</div>
+							<div class="masters__footer fic">
+								<div class="masters__footer_block">
+									<div class="masters__footer_light">СТАЖ РАБОТЫ:</div>
+									<div class="masters__footer_num">1 г. 1 мес.</div>
+								</div>
+								<button class="masters__footer_btn">Записаться</button>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="cardBlock masters__block">
+							<div class="masters__header fic">
+								<img src="{% static 'img/masters/master5.svg' %}" alt="master" class="masters__header_img">
+								<div class="masters__header_elmes">
+									<div class="masters__header_name">Мария Максимова</div>
+									<img src="{% static 'img/rating.svg' %}" alt="rating" class="masters__header_rating">
+									<div class="masters__header_reviews">42 отзыва</div>
+								</div>
+							</div>
+							<div class="masters__main">
+								<div class="masters__main_speciality">СПЕЦИАЛЬНОСТЬ:</div>
+								<div class="masters__main_intro">Стилист</div>
+							</div>
+							<div class="masters__footer fic">
+								<div class="masters__footer_block">
+									<div class="masters__footer_light">СТАЖ РАБОТЫ:</div>
+									<div class="masters__footer_num">3 г. 1 мес.</div>
+								</div>
+								<button class="masters__footer_btn">Записаться</button>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="cardBlock masters__block">
+							<div class="masters__header fic">
+								<img src="{% static 'img/masters/master6.svg' %}" alt="master" class="masters__header_img">
+								<div class="masters__header_elmes">
+									<div class="masters__header_name">Майя Соболева</div>
+									<img src="{% static 'img/rating.svg' %}" alt="rating" class="masters__header_rating">
+									<div class="masters__header_reviews">32 отзыва</div>
+								</div>
+							</div>
+							<div class="masters__main">
+								<div class="masters__main_speciality">СПЕЦИАЛЬНОСТЬ:</div>
+								<div class="masters__main_intro">Визажист</div>
+							</div>
+							<div class="masters__footer fic">
+								<div class="masters__footer_block">
+									<div class="masters__footer_light">СТАЖ РАБОТЫ:</div>
+									<div class="masters__footer_num">1 г. 1 мес.</div>
+								</div>
+								<button class="masters__footer_btn">Записаться</button>
+							</div>
+						</div>
+					</div>
+					
+					
+
+				</div>
+			</div>
+		</div>
+	</section>
+
+{% endblock %}

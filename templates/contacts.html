@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+	<section id="contacts">
+		<div class="container">
+			<div class="contacts">
+				<div class="title contacts__title">Контакты</div>
+				<div class="row">
+					<div class="col-md-12 col-lg-4 col-xl-3">
+						<form action="#" class="contacts__form">
+							<div class="contacts__form_title">Оставьте заявку на консультацию</div>
+							<div class="contacts__form_block">
+								<input type="text" name="fname" class="contacts__form_iunput" placeholder="Введите имя" required>
+								<div class="contacts__form_inputBlock">
+									<input type="text" name="tel" class="contacts__form_iunput" placeholder="+7(999)999--99-99" required>
+								</div>
+							</div>
+							
+							<textarea name="contactsTextarea" class="contacts__form_textarea" placeholder="Вопрос(необязательно)"></textarea>
+							<div class="contacts__form_checkboxBlock fic">
+								<input type="checkbox" class="contacts__form_checkbox" checked>
+								<span class="contacts__form_checkboxBlock__intro">Я согласен(а) с политикой конфидециоальности</span>
+							</div>
+							<button type="submit" class="contacts__form_btn">Отправить</button>
+						</form>
+					</div>
+					<div class="col-md-12 col-lg-3">
+						<div class="contacts__locationBlock">
+							<div class="contacts__location fic">
+								<img src="{% static 'img/location.svg' %}" alt="location" class="contacts__location_icon">
+								<div class="contacts__location_info">
+									<div class="contacts__location_intro">ул. Пушкинская, д. 78А</div>
+								<div class="contacts__location_date">с 10:00 до 20:00  без выходных</div>
+								</div>
+							</div>
+							<div class="contacts__location fic">
+								<img src="{% static 'img/location.svg' %}" alt="location" class="contacts__location_icon">
+								<div class="contacts__location_info">
+									<div class="contacts__location_intro">ул. Красная, д. 10</div>
+								<div class="contacts__location_date">с 10:00 до 20:00  без выходных</div>
+								</div>
+							</div>
+							<div class="contacts__location fic">
+								<img src="{% static 'img/location.svg' %}" alt="location" class="contacts__location_icon">
+								<div class="contacts__location_info">
+									<div class="contacts__location_intro">ул. Ленина, д. 211</div>
+								<div class="contacts__location_date">с 10:00 до 20:00  без выходных</div>
+								</div>
+							</div>
+						</div>
+						<div class="contacts__block">
+							<div class="contacts__social">
+								<div class="contacts__social_title">соц. сети</div>
+								<div class="contacts__social_block fic">
+									<a href=""><img src="{% static 'img/wa.svg' %}" alt="wa" class="contacts__social_icon"></a>
+									<a href=""><img src="{% static 'img/vk.svg' %}" alt="vk" class="contacts__social_icon"></a>
+									<a href=""><img src="{% static 'img/tg.svg' %}" alt="tg" class="contacts__social_icon"></a>
+									<a href=""><img src="{% static 'img/insta.svg' %}" alt="insta" class="contacts__social_icon"></a>
+								</div>
+							</div>
+							<div class="contacts__info">
+								<div class="contacts__infoBlock">
+									<div class="contacts__info_title">контакты</div>
+									<a href="tel:+79179023800" class="contacts__info_tel">+7 (917) 902 38 00</a>
+								</div>
+								<a href="#" class="contacts__info_mail">hello@beauty.ru</a>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-12 col-lg-5 col-xl-6">
+						<div class="contacts__map">
+							<script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3Ab7c7d417e660dbf6565501ccc84acd33ec7588fd751ceabc6947e3e9b881e413&amp;lang=ru_RU&amp;scroll=true"></script>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+{% endblock %}

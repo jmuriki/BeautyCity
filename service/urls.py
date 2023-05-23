@@ -3,9 +3,13 @@ from service import views
 
 urlpatterns = [
     path('', views.index),
-    path('admin_front/', views.admin),
-    path('notes/', views.notes),
-    path('popup/', views.popup),
+    path('contacts/', views.contacts, name='contacts'),
+    path('masters/', views.masters, name='masters'),
+    path('reviews/', views.reviews, name='reviews'),
+    path('services/', views.services, name='services'),
+    path('admin_front/', views.admin, name='admin_front'),
+    path('notes/', views.notes, name='notes'),
+    path('popup/', views.popup, name='popup'),
     path('service/', views.service, name='service'),
-    path('serviceFinally/', views.serviceFinally),
+    path('serviceFinally/', views.serviceFinally, name='serviceFinally'),
 ]

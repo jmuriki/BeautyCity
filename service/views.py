@@ -7,6 +7,22 @@ def index(request, context=None):
 	return render(request, 'index.html', context)
 
 
+def contacts(request, context=None):
+	return render(request, 'contacts.html', context)
+
+
+def reviews(request, context=None):
+	return render(request, 'reviews.html', context)
+
+
+def masters(request, context=None):
+	return render(request, 'masters.html', context)
+
+
+def services(request, context=None):
+	return render(request, 'services.html', context)
+
+
 def admin(request, context=None):
 	return render(request, 'admin.html', context)
 
@@ -20,7 +36,6 @@ def popup(request, context=None):
 
 
 def service(request, context=None):
-
 	return render(request, 'service.html', context)
 
 
