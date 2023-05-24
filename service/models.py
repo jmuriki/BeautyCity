@@ -12,6 +12,7 @@ class Salon(models.Model):
     image = models.ImageField(
         'Изображение',
         db_index=True,
+        blank=True,
     )
     address = models.CharField(
         'адрес',
