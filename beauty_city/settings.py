@@ -45,7 +45,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-     'debug_toolbar',
+    'service',
+    'debug_toolbar',
+    "phonenumber_field",
 ]
 
 MIDDLEWARE = [
@@ -131,15 +133,17 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-RU'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
 USE_L10N = True
 
 USE_TZ = True
+
+PHONENUMBER_DEFAULT_REGION = 'RU'
 
 
 # Static files (CSS, JavaScript, Images)
