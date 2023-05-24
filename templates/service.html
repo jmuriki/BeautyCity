@@ -15,199 +15,102 @@
 
 {% endblock %}
 
-{% block content %}
+{% block body %}
 
 <body class="servicePage">
-	<section id="mobMenu">
-			<div class="mobMenu">
-				<div class="container">
-				<div class="mobMenu__header">
-					<div class="row">
-						<div class="col-4 col-md-3">
-							<a href="/">
-								<img src="{% static 'img/Logo.svg' %}" alt="Logo" class="logo header__logo">
-							</a>
-						</div>
-						<div class="col-3 col-md-2">
-							<img src="{% static 'img/x.svg' %}" alt="x" class="mobMenuClose">
-						</div>
-					</div>
-				</div>
-				<div class="mobMenu__content">
-					<div class="row">
-						<div class="col-md-3">
-							<nav>
-								<ul class="mobMenu__menu">
-									<li class="mobMenu__menu_item">
-										<a href="#" class="mobMenu__menu_link">Мастера</a>
-									</li>
-									<li class="mobMenu__menu_item"><a href="#" class="mobMenu__menu_link">Услуги</a></li>
-									<li class="mobMenu__menu_item"><a href="#" class="mobMenu__menu_link">Отзывы</a></li>
-									<li class="mobMenu__menu_item"><a href="#" class="mobMenu__menu_link">Контакты</a></li>
-								</ul>
-							</nav>
-							<a href="#" class="mobMenu__account">Личный кабинет</a>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-12">
-							<button class="mobMenu__btn">Перезвоните мне</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<header id="header">
-		<div class="container">
-			<div class="header">
-				<div class="row">
-					<div class="col-2 col-md-2 mob">
-						<img src="{% static 'img/hamburger.svg' %}" alt="hamburger" class="header__mobMenu">
-					</div>
-					<div class="col-5 col-md-3 col-lg-2">
-						<a href="/">
-							<img src="{% static 'img/Logo.svg' %}" alt="Logo" class="logo header__logo">
-						</a>
-					</div>
-					<div class="col-md-5 ">
-						<nav>
-						<ul class="menu">
-							<li class="menu__item"><a href="#" class="menu__item_link">Мастера</a></li>
-							<li class="menu__item"><a href="#" class="menu__item_link">Услуги</a></li>
-							<li class="menu__item"><a href="#" class="menu__item_link">Отзывы</a></li>
-							<li class="menu__item"><a href="#" class="menu__item_link">Контакты</a></li>
-						</ul>
-					</nav>
-					</div>
-					<div class="col-2 col-md-2 col-lg-3">
-						<div class="header__block">
-						<button class="header__block_btn">Перезвоните мне</button>
-						<div class="header__block_auth">
-							<img src="{% static 'img/acc.svg' %}" alt="account" class="header__account_img">
-							<span class="header__block_auth__intro">Войти</span>
-						</div>
-					</div>
-					</div>
-				</div>
-				
-				
-				
-			</div>
-		</div>
-	</header>
+
+{% endblock %}
+
+{% block content %}
+
 	<section id="service">
 		<div class="container">
 			<div class="service">
 				<div class="breadCrumbs">
-					<a href="#" class="breadCrumbs__item">На главную</a>
+					<a href="{% url 'main_page' %}" class="breadCrumbs__item">На главную</a>
 				</div>
 				<div class="service__block">
 					<h1 class="service__title">Запись на услугу</h1>
 					<button class="service__btn btn">Запись по телефону</button>
 				</div>
 				
-				<form action="#" class="service__form">
-					<!-- <select name="selectSalon" id="" class="service__form_select">
-						<option value="" selected>(Выберите салон)</option>
-						<option value="salon1" >Салон 1</option>
-						<option value="salon2" >Салон 2</option>
-						<option value="salon3" >Салон 3</option>
-					</select> -->
+				<form action="{% url 'serviceFinally' %}" class="service__form">
+
+					{% csrf_token %}
+
 					<div class="service__form_block service__salons">
 						<button class="accordion">(Выберите салон)</button>
 						<div class="panel">
-						  <div class="accordion__block fic">
-						  	<div class="accordion__block_intro">BeautyCity Пушкинская</div>
-						  	<div class="accordion__block_address">ул. Пушкинская, д. 78А</div>
-						  </div>
-						  <div class="accordion__block fic">
-						  	<div class="accordion__block_intro">BeautyCity Ленина</div>
-						  	<div class="accordion__block_address">ул. Ленина, д. 211</div>
-						  </div>
-						  <div class="accordion__block fic">
-						  	<div class="accordion__block_intro">BeautyCity Красная</div>
-						  	<div class="accordion__block_address">ул. Красная, д. 10</div>
-						  </div>
+
+							{% if salons %}
+
+								{% for salon in salons %}
+
+									<div class="accordion__block fic">
+										<div class="accordion__block_intro">{{ salon.name }}</div>
+										<div class="accordion__block_address">{{ salon.address }}</div>
+									</div>
+
+								{% endfor %}
+
+							{% endif %}
+
 						</div>
 					</div>
 					<div class="service__form_block service__services">
 						<button class="accordion">(Выберите услугу)</button>
 						<div class="panel">
-							<button class="accordion">Парикмахерские услуги</button>
-						 	<div class="panel">
-							  
-							  	<!-- <div class="accordion__block_intro">Макияж</div> -->
-							  		<div class="accordion__block_items">
-							  			<div class="accordion__block_item fic">
-							  				<div class="accordion__block_item_intro">Окрашивание волос</div>
-									  		<div class="accordion__block_item_address">5 000 ₽</div>
-							  			</div>
 
-							  			<div class="accordion__block_item fic">
-							  				<div class="accordion__block_item_intro">Укладка волос</div>
-									  		<div class="accordion__block_item_address">1 500 ₽</div>
-							  			</div>	
-								  </div>
-							  
-							</div>
-						 	<button class="accordion">Ногтевой сервис</button>
-							<div class="panel">
-							  
-							  	<!-- <div class="accordion__block_intro">Макияж</div> -->
-							  		<div class="accordion__block_items">
-							  			<div class="accordion__block_item fic">
-							  				<div class="accordion__block_item_intro">Маникюр. Классический</div>
-									  		<div class="accordion__block_item_address">1 400 ₽</div>
-							  			</div>
+							{% if categories %}
 
-							  			<div class="accordion__block_item fic">
-							  				<div class="accordion__block_item_intro">Педикюр</div>
-									  		<div class="accordion__block_item_address">1 400 ₽</div>
-							  			</div>
-							  			<div class="accordion__block_item fic">
-							  				<div class="accordion__block_item_intro">Наращивание ногтей</div>
-									  		<div class="accordion__block_item_address">1 400 ₽</div>
-							  			</div>
-								  </div>
-							  
-							</div>
-						 <!--  <div class="accordion__block">
-						  	<div class="accordion__block_intro">Парикмахерские услуги</div>
-						  </div>
-						  <div class="accordion__block">
-						  	<div class="accordion__block_intro">Ногтевой сервис</div>
-						  </div> -->
-						  <button class="accordion">Макияж</button>
-						  <div class="panel">
+								{% for category in categories %}
 
-							  
-							  	<!-- <div class="accordion__block_intro">Макияж</div> -->
-							  		<div class="accordion__block_items">
-							  			<div class="accordion__block_item fic">
-							  				<div class="accordion__block_item_intro">Дневной макияж</div>
-									  		<div class="accordion__block_item_address">1 400 ₽</div>
-							  			</div>
+									<button class="accordion">{{ category }}</button>
+									<div class="panel">
 
-							  			<div class="accordion__block_item fic">
-							  				<div class="accordion__block_item_intro">Свадебный макияж</div>
-									  		<div class="accordion__block_item_address">3 000 ₽</div>
-							  			</div>
-							  			<div class="accordion__block_item fic">
-							  				<div class="accordion__block_item_intro">Вечерний макияж</div>
-									  		<div class="accordion__block_item_address">2 000 ₽</div>
-							  			</div>
-								  </div>
-							  
-							</div>
+										{% for service in category.services.all %}
+
+											<div class="accordion__block_items">
+												<div class="accordion__block_item fic">
+													<div class="accordion__block_item_intro">{{ service.name }}</div>
+													<div class="accordion__block_item_address">{{ service.price }} ₽</div>
+												</div>
+											</div>
+
+										{% endfor %}
+
+									</div>
+
+								{% endfor %}
+
+							{% endif %}
+
 						</div>
 					</div>
 					<div class="service__form_block service__masters">
 						<button class="accordion">(Выберите мастера)</button>
 						<div class="panel">
-						  
+
+							{% if masters %}
+
+								{% for master in masters %}
+
+									<div class="accordion__block fic">
+										<div class="accordion__block_elems fic">
+											{% if master.foto %}
+												<img src="{% static master.foto.url %}" alt="avatar" class="accordion__block_img">
+											{% endif %}
+											<div class="accordion__block_master">{{ master.name }}</div>
+										</div>
+										<div class="accordion__block_prof">{{ master.specialization }}</div>
+									</div>
+
+								{% endfor %}
+
+							{% endif %}
+
 						</div>
-						  
+							
 						
 
 					</div>
@@ -216,6 +119,7 @@
 			</div>
 		</div>
 	</section>
+
 	<section id="time">
 		<div class="container">
 			<div class="time">
@@ -230,25 +134,25 @@
 								<div class="time__items">
 									<div class="time__elems_intro">Утро</div>
 									<div class="time__elems_elem fic">
-										<button data-time="10:00" class="time__elems_btn">10:00</button>
-										<button data-time="10:30" class="time__elems_btn">10:30</button>
+										<button data-time="10:00" class="time__elems_btn" name="selected_time">10:00</button>
+										<button data-time="10:30" class="time__elems_btn" name="selected_time">10:30</button>
 									</div>
 								</div>
 								<div class="time__items">
 									<div class="time__elems_intro">День</div>
 									<div class="time__elems_elem fic">
-										<button data-time="12:00" class="time__elems_btn">12:00</button>
-										<button data-time="12:30" class="time__elems_btn">12:30</button>
-										<button data-time="15:00" class="time__elems_btn">15:00</button>
-										<button data-time="16:30" class="time__elems_btn">16:30</button>
+										<button data-time="12:00" class="time__elems_btn" name="selected_time">12:00</button>
+										<button data-time="12:30" class="time__elems_btn" name="selected_time">12:30</button>
+										<button data-time="15:00" class="time__elems_btn" name="selected_time">15:00</button>
+										<button data-time="16:30" class="time__elems_btn" name="selected_time">16:30</button>
 									</div>
 								</div>
 								<div class="time__items">
 									<div class="time__elems_intro">Вечер</div>
 									<div class="time__elems_elem fic">
-										<button data-time="17:00" class="time__elems_btn">17:00</button>
-										<button data-time="18:30" class="time__elems_btn">18:30</button>
-										<button data-time="19:00" class="time__elems_btn">19:00</button>
+										<button data-time="17:00" class="time__elems_btn" name="selected_time">17:00</button>
+										<button data-time="18:30" class="time__elems_btn" name="selected_time">18:30</button>
+										<button data-time="19:00" class="time__elems_btn" name="selected_time">19:00</button>
 									</div>
 								</div>
 							</div>
@@ -258,7 +162,7 @@
 				<div class="time__btns">
 					<div class="row">
 						<div class="col-md-12">
-							<button  class="time__btns_next">Далее</button>
+							<button id="Далее" class="time__btns_next">Далее</button>
 							<button  class="time__btns_home">На главную</button>
 						</div>
 					</div>
@@ -266,5 +170,39 @@
 			</div>
 		</div>
 	</section>
+
+	<script>
+
+		$(document).ready(function() {
+
+			$('.time__items .time__elems_elem .time__elems_btn').click(function(e) {
+				e.preventDefault()
+				$('.time__elems_btn').removeClass('active')
+				$(this).addClass('active')
+				// $(this).hasClass('active') ? $(this).removeClass('active') : $(this).addClass('active')
+			});
+
+			$(document).on('click', '.servicePage', function() {
+				if($('.time__items .time__elems_elem .time__elems_btn').hasClass('active') && $('.service__form_block > button').hasClass('selected')) {
+					$('.time__btns_next').addClass('active')
+				}
+			});
+
+			$('.time__btns_next').click(function(e) {
+				e.preventDefault(); // Предотвращаем стандартное поведение кнопки
+				var form = $('.service__form'); // Получаем форму
+				var formData = form.serialize(); // Собираем данные из формы
+				var url = form.attr('action'); // Получаем URL-адрес из атрибута action формы
+
+				// Отправляем POST запрос
+				$.post(url, formData, function(response) {
+					// Обрабатываем ответ сервера
+					console.log(response);
+				});
+			});
+
+		})
+
+	</script>
 
 {% endblock %}

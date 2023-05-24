@@ -41,9 +41,3 @@ class ServiceAdmin(admin.ModelAdmin):
 class OrderAdmin(admin.ModelAdmin):
     fields = ('client', 'procedure', 'salon', 'specialist', 'order_hour', 'order_day', 'payment_method', 'payment_status', )
     list_display = ('client', 'procedure', 'salon', 'specialist', 'order_hour', 'order_day', 'payment_method', 'payment_status', )
-
-
-
-
-
-
