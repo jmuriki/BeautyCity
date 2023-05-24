@@ -36,7 +36,6 @@ def popup(request, context=None):
 
 
 def service(request, context=None):
-
 	return render(request, 'service.html', context)
 
 

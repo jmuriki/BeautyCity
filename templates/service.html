@@ -2,14 +2,100 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block body %}
+{% block links %}
 
-<body class="servicePage">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<!-- 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css.map">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css.map"> -->
+	<link rel="stylesheet" href="{% static 'css/bootstrap-grid.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/air-datepicker.css' %}">
+	<script src="{% static 'js/air-datepicker.js' %}"></script>
+	<link rel="stylesheet" href="{% static 'css/main.css' %}">
 
 {% endblock %}
 
 {% block content %}
 
+<body class="servicePage">
+	<section id="mobMenu">
+			<div class="mobMenu">
+				<div class="container">
+				<div class="mobMenu__header">
+					<div class="row">
+						<div class="col-4 col-md-3">
+							<a href="/">
+								<img src="{% static 'img/Logo.svg' %}" alt="Logo" class="logo header__logo">
+							</a>
+						</div>
+						<div class="col-3 col-md-2">
+							<img src="{% static 'img/x.svg' %}" alt="x" class="mobMenuClose">
+						</div>
+					</div>
+				</div>
+				<div class="mobMenu__content">
+					<div class="row">
+						<div class="col-md-3">
+							<nav>
+								<ul class="mobMenu__menu">
+									<li class="mobMenu__menu_item">
+										<a href="#" class="mobMenu__menu_link">Мастера</a>
+									</li>
+									<li class="mobMenu__menu_item"><a href="#" class="mobMenu__menu_link">Услуги</a></li>
+									<li class="mobMenu__menu_item"><a href="#" class="mobMenu__menu_link">Отзывы</a></li>
+									<li class="mobMenu__menu_item"><a href="#" class="mobMenu__menu_link">Контакты</a></li>
+								</ul>
+							</nav>
+							<a href="#" class="mobMenu__account">Личный кабинет</a>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<button class="mobMenu__btn">Перезвоните мне</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<header id="header">
+		<div class="container">
+			<div class="header">
+				<div class="row">
+					<div class="col-2 col-md-2 mob">
+						<img src="{% static 'img/hamburger.svg' %}" alt="hamburger" class="header__mobMenu">
+					</div>
+					<div class="col-5 col-md-3 col-lg-2">
+						<a href="/">
+							<img src="{% static 'img/Logo.svg' %}" alt="Logo" class="logo header__logo">
+						</a>
+					</div>
+					<div class="col-md-5 ">
+						<nav>
+						<ul class="menu">
+							<li class="menu__item"><a href="#" class="menu__item_link">Мастера</a></li>
+							<li class="menu__item"><a href="#" class="menu__item_link">Услуги</a></li>
+							<li class="menu__item"><a href="#" class="menu__item_link">Отзывы</a></li>
+							<li class="menu__item"><a href="#" class="menu__item_link">Контакты</a></li>
+						</ul>
+					</nav>
+					</div>
+					<div class="col-2 col-md-2 col-lg-3">
+						<div class="header__block">
+						<button class="header__block_btn">Перезвоните мне</button>
+						<div class="header__block_auth">
+							<img src="{% static 'img/acc.svg' %}" alt="account" class="header__account_img">
+							<span class="header__block_auth__intro">Войти</span>
+						</div>
+					</div>
+					</div>
+				</div>
+				
+				
+				
+			</div>
+		</div>
+	</header>
 	<section id="service">
 		<div class="container">
 			<div class="service">
