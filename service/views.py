@@ -64,10 +64,6 @@ def service(request, context=None):
 	return render(request, 'service.html', context)
 
 
-<<<<<<< HEAD
-def serviceFinally(request, context={}):
-	context['order'] = Order.objects.first()
-=======
 def serviceFinally(request, context=None):
 	if request.method == 'POST':
 		print("!!!", "POST")
@@ -75,7 +71,6 @@ def serviceFinally(request, context=None):
 	# 	select_salon = request.POST.get('selectSalon')
 	# 	select_service = request.POST.get('selectService')
 	# 	select_master = request.POST.get('selectMaster')
->>>>>>> 08bc89dad42593b5c6582e3e4798d31876fa9064
 	return render(request, 'serviceFinally.html', context)
 
 

@@ -140,9 +140,5 @@ cython_debug/
 # This project
 .DS_Store
 hidden/
-<<<<<<< HEAD
-
-.idea/
-=======
 migrations/
->>>>>>> 08bc89dad42593b5c6582e3e4798d31876fa9064
+.idea/
