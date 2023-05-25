@@ -64,9 +64,11 @@ def service(request, context=None):
 	return render(request, 'service.html', context)
 
 
-def serviceFinally(request, context=None):
+def serviceFinally(request):
+	context = {'order': Order.objects.first()}
 	if request.method == 'POST':
 		print("!!!", "POST")
+		print(context['order'])
 	# 	selected_time = request.POST.get('selected_time')
 	# 	select_salon = request.POST.get('selectSalon')
 	# 	select_service = request.POST.get('selectService')
@@ -93,22 +95,20 @@ def make_pay(pay_account, pay_secretkey, amount, payment_descr, ret_url):
 
 def payment(request):
 	if request.POST:
-		order_id = int(request.POST.get('order_id'))
+		order_id = request.POST.get('order_id')
 		payment_descr = request.POST.get('payment_descr')
 		order = Order.objects.get(id=order_id)
 		amount = order.procedure.price
-
+		save_to_cookies(request, 'paid_order_id', order_id)
 		absolute_url = request.build_absolute_uri()
 		parsed_url = urlparse(absolute_url)
 		ret_url = f'{parsed_url.scheme}://{parsed_url.netloc}/pay_result?payment_success=1'
-		print(ret_url)
 		yookassa = make_pay(PAY_ACC, PAY_KEY, amount, payment_descr, ret_url)
 		return redirect(yookassa.confirmation.confirmation_url)
 	return redirect('serviceFinally')
 
 def pay_result(request, context={}):
 	payment_res = request.GET['payment_success']
-	print(payment_res)
 	message = "Оплата не прошла."
 	if payment_res:
 		message = "Оплата прошла успешно."
