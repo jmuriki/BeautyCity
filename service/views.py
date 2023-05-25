@@ -17,6 +17,8 @@ def save_to_cookies(request, key, payload):
     response.set_cookie('session_id', request.session.session_key)
     return response
 
+from service.models import Salon, Category, Service, Specialist
+
 
 def index(request, context=None):
     return render(request, 'index.html', context)
@@ -51,11 +53,29 @@ def popup(request, context=None):
 
 
 def service(request, context=None):
+	salons = Salon.objects.prefetch_related("workers")
+	categories = Category.objects.prefetch_related("services")
+	masters = Specialist.objects.all()
+	context = {
+		"salons": salons,
+		"categories": categories,
+		"masters": masters,
+	}
 	return render(request, 'service.html', context)
 
 
+<<<<<<< HEAD
 def serviceFinally(request, context={}):
 	context['order'] = Order.objects.first()
+=======
+def serviceFinally(request, context=None):
+	if request.method == 'POST':
+		print("!!!", "POST")
+	# 	selected_time = request.POST.get('selected_time')
+	# 	select_salon = request.POST.get('selectSalon')
+	# 	select_service = request.POST.get('selectService')
+	# 	select_master = request.POST.get('selectMaster')
+>>>>>>> 08bc89dad42593b5c6582e3e4798d31876fa9064
 	return render(request, 'serviceFinally.html', context)
 
 
