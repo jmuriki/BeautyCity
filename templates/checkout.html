@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Оплата</title>
+  </head>
+  <body>
+    <form method="POST" action="{% url 'payment' %}">
+      {% csrf_token %}
+      <input type="hidden" name="order_id" value="{{ order.id }}">
+      <input type="hidden" name="payment_descr" value="Оплата услуги">
+      <div><button class="btn fs_24 px-5 py-3 text-white border-8 SelfStorage__bg_orange SelfStorage__btn2_orange mb-3" onclick="location.href='{% url 'payment' %}'">Оплатить услугу</button></div>
+    </form>
+  </body>
+</html>
+
