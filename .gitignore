@@ -140,3 +140,5 @@ cython_debug/
 # This project
 .DS_Store
 hidden/
+
+.idea/

@@ -145,6 +145,8 @@ USE_TZ = True
 
 PHONENUMBER_DEFAULT_REGION = 'RU'
 
+PAY_ACC = env.str('PAY_ACC')
+PAY_KEY = env.str('PAY_KEY')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/

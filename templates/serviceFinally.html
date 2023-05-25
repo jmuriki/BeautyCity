@@ -58,7 +58,14 @@
 								<button type="submit" class="serviceFinallys__form_btn">Записаться</button>
 								<button type="submit" class="serviceFinallys__form_back">Назад</button>
 							</div>
-						</form>	
+						</form>
+						<form method="POST" action="{% url 'payment' %}">
+							{% csrf_token %}
+							<input type="hidden" name="order_id" value="{{ order.id }}">
+							<input type="hidden" name="payment_descr" value="Оплата услуги">
+							<div><button class="btn fs_24 px-5 py-3 text-white border-8 SelfStorage__bg_orange SelfStorage__btn2_orange mb-3" onclick="location.href='{% url 'payment' %}'">Оплатить услугу</button>
+							</div>
+						</form>
 					</div>
 					<div class="col-md-12 col-lg-5">
 						<img src="{% static 'img/bannerImg.svg' %}" alt="bannerImg" class="banner__img">
