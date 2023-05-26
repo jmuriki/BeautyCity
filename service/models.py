@@ -1,6 +1,8 @@
 from django.db import models
 from django.core.validators import MinValueValidator
+
 from phonenumber_field.modelfields import PhoneNumberField
+from datetime import time, timedelta, datetime
 
 
 class Salon(models.Model):
@@ -160,27 +162,7 @@ class PaymentStatus(models.TextChoices):
 
 
 class Order(models.Model):
-    MORNING_1 = '10:00'
-    MORNING_2 = '10:30'
-    DAY_1 = '12:00'
-    DAY_2 = '12:30'
-    DAY_3 = '15:00'
-    DAY_4 = '16:30'
-    EVENING_1 = '17:00'
-    EVENING_2 = '18:30'
-    EVENING_3 = '19:00'
 
-    WORK_HOURS = [
-        (MORNING_1, MORNING_1),
-        (MORNING_2, MORNING_2),
-        (DAY_1, DAY_1),
-        (DAY_2, DAY_2),
-        (DAY_3, DAY_3),
-        (DAY_4, DAY_4),
-        (EVENING_1, EVENING_1),
-        (EVENING_2, EVENING_2),
-        (EVENING_3, EVENING_3),
-    ]
     client = models.ForeignKey(
         Client,
         related_name='orders',
@@ -209,17 +191,15 @@ class Order(models.Model):
         on_delete=models.CASCADE,
         db_index=True
     )
-    order_hour = models.CharField(
-        'Время записи',
-        max_length=20,
-        choices=WORK_HOURS,
-        blank=True,
-
-    )
-    order_day = models.DateField(
-        'Дата',
+    order_hour = models.ForeignKey(
+        'TimeSlot',
+        verbose_name='Время приема',
+        related_name='orders',
+        on_delete=models.SET_NULL,
+        default=None,
         null=True
     )
+
     payment_method = models.CharField(
         'Способ оплаты',
         max_length=12,
@@ -242,3 +222,60 @@ class Order(models.Model):
         verbose_name = 'Заказ'
         verbose_name_plural = 'Заказы'
 
+
+class TimeSlot(models.Model):
+    DAYTIME_CHOICES = (
+        ('M', 'Утро'),
+        ('L', 'Обед'),
+        ('E', 'Вечер')
+    )
+    START_TIME = time(10, 0)
+    END_TIME = time(19, 30)
+    INTERVAL = timedelta(minutes=30)
+
+    START_TIME_CHOICES = []
+
+    current_time = datetime.combine(datetime.today(), START_TIME)
+    end_time = datetime.combine(datetime.today(), END_TIME)
+    while current_time.time() <= end_time.time():
+        START_TIME_CHOICES.append((current_time.time(), current_time.time().strftime('%H:%M')))
+        current_time += INTERVAL
+
+    start_time = models.TimeField('Начало', choices=START_TIME_CHOICES)
+    end_time = models.TimeField('Конец', editable=False)  # New field
+    date = models.DateField('Дата')
+    specialist = models.ManyToManyField(Specialist, related_name='appointments', verbose_name='Специалист')
+    is_working = models.BooleanField(default=False)
+    is_available = models.BooleanField(default=True)
+    daytime = models.CharField(
+        max_length=1,
+        verbose_name='Время суток',
+        choices=DAYTIME_CHOICES,
+        db_index=True,
+        blank=True
+    )
+
+    class Meta:
+        verbose_name = 'Временной период'
+        verbose_name_plural = 'Временные периоды'
+
+    def __str__(self):
+        return f'{self.start_time}:{self.end_time}'
+
+    def clean(self, ):
+        if not self.is_working:
+            self.is_available = False
+        if self.start_time < time(10, 0) or self.start_time > time(19, 30):
+            raise ValidationError("Время должно быть между 10:00 и 19:30")
+        if time(10, 0) <= self.start_time < time(11, 30):
+            self.daytime = 'M'
+        elif self.start_time <= time(16, 30):
+            self.daytime = 'L'
+        else:
+            self.daytime = 'E'
+
+        start_datetime = datetime.combine(self.date, self.start_time)
+        end_datetime = start_datetime + timedelta(minutes=30)
+        self.end_time = end_datetime.time().strftime('%H:%M')
+
+        super(TimeSlot, self).clean()
