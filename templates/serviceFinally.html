@@ -20,23 +20,23 @@
 								<div class="serviceFinally__form_header fic">
 									<span class="serviceFinally__form_header__number">Запись №32985</span>
 									<div class="serviceFinally__form_header__item fic">
-										<div class="serviceFinally__form_header__service">BeautyCity Пушкинская</div>
-										<div class="serviceFinally__form_header__address">ул. Пушкинская, д. 78А</div>
+										<div class="serviceFinally__form_header__service">{{ selected_salon }}</div>
+										<div class="serviceFinally__form_header__address">{{ selected_address }}</div>
 									</div>
 								</div>
 								<div class="serviceFinally__form_content">
 									<div class="serviceFinally__form_content__block fic">
-										<div class="serviceFinally__form_content__title">Дневной макияж</div>
-										<div class="serviceFinally__form_content__price">750 ₽</div>
+										<div class="serviceFinally__form_content__title">{{ selected_service }}</div>
+										<div class="serviceFinally__form_content__price">{{ selected_price }} ₽</div>
 									</div>
 									<div class="serviceFinally__form_content__block fic">
 										<div class="serviceFinally__form_content__items fic">
 										  	<img src="{% static 'img/masters/avatar/vizajist1.svg' %}" alt="avatar" class="accordion__block_img">
-										  	<div class="accordion__block_master">Елена Грибнова</div>
+										  	<div class="accordion__block_master">{{ selected_master }} - {{ selected_speciality }}</div>
 									    </div>
 									    <div class="serviceFinally__form_content__item fic">
-											<div class="serviceFinally__form_content__time">16:30</div>
-											<div class="serviceFinally__form_content__date">18 ноября</div>
+											<div class="serviceFinally__form_content__time">{{ selected_time }}</div>
+											<div class="serviceFinally__form_content__date">{{ selected_date }}.{{ selected_month }}.{{ selected_year }}</div>
 										</div>
 									</div>
 									
@@ -55,17 +55,22 @@
 									<input type="checkbox" class="contacts__form_checkbox" checked="">
 									<span class="contacts__form_checkboxBlock__intro">Я согласен(а) с политикой конфидециоальности</span>
 								</div>
-								<button type="submit" class="serviceFinallys__form_btn">Записаться</button>
+								<form method="POST" action="{% url 'payment' %}">
+									{% csrf_token %}
+									<input type="hidden" name="order_id" value="{{ order.id }}">
+									<input type="hidden" name="payment_descr" value="Оформление записи">
+									<button type="submit" class="serviceFinallys__form_btn">Записаться без оплаты</button>
+								<form method="POST" action="{% url 'payment' %}">
+									{% csrf_token %}
+									<input type="hidden" name="order_id" value="{{ order.id }}">
+									<input type="hidden" name="payment_descr" value="Оплата услуги">
+									<div><button class="serviceFinallys__form_btn" onclick="location.href='{% url 'payment' %}'">Записаться и оплатить</button>
+									</div>
+								</form>
 								<button type="submit" class="serviceFinallys__form_back">Назад</button>
 							</div>
 						</form>
-						<form method="POST" action="{% url 'payment' %}">
-							{% csrf_token %}
-							<input type="hidden" name="order_id" value="{{ order.id }}">
-							<input type="hidden" name="payment_descr" value="Оплата услуги">
-							<div><button class="btn fs_24 px-5 py-3 text-white border-8 SelfStorage__bg_orange SelfStorage__btn2_orange mb-3" onclick="location.href='{% url 'payment' %}'">Оплатить услугу</button>
-							</div>
-						</form>
+
 					</div>
 					<div class="col-md-12 col-lg-5">
 						<img src="{% static 'img/bannerImg.svg' %}" alt="bannerImg" class="banner__img">
