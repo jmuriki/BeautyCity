@@ -35,7 +35,7 @@
 				</div>
 				
 				<form class="service__form">
-					<div class="service__form_block service__salons">
+					<div class="service__form_block">
 						<button class="accordion">(Выберите салон)</button>
 						<div class="panel">
 
@@ -43,7 +43,7 @@
 
 								{% for salon in salons %}
 
-									<div class="accordion__block fic">
+									<div class="accordion__block accordion__block_salon fic">
 										<div class="accordion__block_intro">{{ salon.name }}</div>
 										<div class="accordion__block_address">{{ salon.address }}</div>
 									</div>
@@ -54,7 +54,7 @@
 
 						</div>
 					</div>
-					<div class="service__form_block service__services">
+					<div class="service__form_block">
 						<button class="accordion">(Выберите услугу)</button>
 						<div class="panel">
 
@@ -84,7 +84,7 @@
 
 						</div>
 					</div>
-					<div class="service__form_block service__masters">
+					<div class="service__form_block">
 						<button class="accordion">(Выберите мастера)</button>
 						<div class="panel">
 
@@ -92,13 +92,8 @@
 
 								{% for master in masters %}
 
-									<div class="accordion__block fic">
-										<div class="accordion__block_elems fic">
-											{% if master.foto %}
-												<img src="{% static master.foto.url %}" alt="avatar" class="accordion__block_img">
-											{% endif %}
-											<div class="accordion__block_master">{{ master.name }}</div>
-										</div>
+									<div class="accordion__block accordion__block_master fic">
+										<div class="accordion__block_master">{{ master.name }}</div>
 										<div class="accordion__block_prof">{{ master.specialization }}</div>
 									</div>
 
@@ -127,19 +122,19 @@
 								<div class="time__items">
 									<div class="time__elems_intro">Утро</div>
 									<div class="time__elems_elem fic">
-										<button data-time="10:00" class="time__elems_btn" name="selected_time">10:00</button>
+										<button data-time="10:00" class="time__elems_btn">10:00</button>
 									</div>
 								</div>
 								<div class="time__items">
 									<div class="time__elems_intro">День</div>
 									<div class="time__elems_elem fic">
-										<button data-time="12:00" class="time__elems_btn" name="selected_time">12:00</button>
+										<button data-time="12:00" class="time__elems_btn">12:00</button>
 									</div>
 								</div>
 								<div class="time__items">
 									<div class="time__elems_intro">Вечер</div>
 									<div class="time__elems_elem fic">
-										<button data-time="17:00" class="time__elems_btn" name="selected_time">17:00</button>
+										<button data-time="17:00" class="time__elems_btn">17:00</button>
 									</div>
 								</div>
 							</div>
@@ -209,46 +204,42 @@
 
 	let salonName,serviceName,masterName,timeBlock;
 
-	$(document).on('click', '.accordion__block', function(e) {
-		let thisAddress;
+	$(document).on('click', '.accordion__block_salon', function(e) {
+		let salonAddress;
 		salonName = $(this).find('> .accordion__block_intro').text()
-		thisAddress = $(this).find('> .accordion__block_address').text()
-		$(this).parent().parent().find('> button.active').addClass('selected').text(salonName + '  ' +thisAddress)
+		salonAddress = $(this).find('> .accordion__block_address').text()
+		$(this).closest('.service__form_block').find('> button.active').addClass('selected').text(salonName + '  ' +salonAddress)
 		setTimeout(() => {
-			$(this).parent().parent().find('> button.active').click()
+			$(this).closest('.service__form_block').find('> button.active').click()
 		}, 200)
 
 	})
-
 
 	$('.accordion__block_item').click(function(e) {
-		let thisAddress;
+		let servicePrice;
 		serviceName = $(this).find('> .accordion__block_item_intro').text()
-		thisAddress = $(this).find('> .accordion__block_item_address').text()
-		$(this).parent().parent().parent().parent().find('> button.active').addClass('selected').text(serviceName + '  ' +thisAddress)
+		servicePrice = $(this).find('> .accordion__block_item_address').text()
+		$(this).closest('.service__form_block').find('> button.active').addClass('selected').text(serviceName + '  ' +servicePrice)
 		setTimeout(() => {
-			$(this).parent().parent().parent().parent().find('> button.active').click()
+			$(this).closest('.service__form_block').find('> button.active').click()
 		}, 200)
 	})
 
-	$(document).on('click', '.service__masters .accordion__block', function(e) {
-		// let clone = $(this).clone()
-		masterName = $(this).find('> .accordion__block_master').text()
-		let thisProf = $(this).find('> .accordion__block_prof').text()
-		// console.log(clone)
-		// $(this).parent().parent().find('> button.active').html(clone)
-		$(this).parent().find('> button.active').addClass('selected').text(masterName + '  ' +thisProf)
+	$('.accordion__block_master').click(function(e) {
+		let masterProf;
+		masterName = $(this).find('> .accordion__block_master').text();
+		masterProf = $(this).find('> .accordion__block_prof').text();
+		$(this).closest('.service__form_block').find('> button.active').addClass('selected').text(masterName + ' - ' + masterProf)
 		setTimeout(() => {
-		$(this).parent().parent().find('> button.active').click()
+			$(this).closest('.service__form_block').find('> button.active').click()
 		}, 200)
-	})
+	});
 
-	//service
 	$('.time__items .time__elems_elem .time__elems_btn').click(function(e) {
 		e.preventDefault()
 		$('.time__elems_btn').removeClass('active')
-		$(this).addClass('active')
-		// $(this).hasClass('active') ? $(this).removeClass('active') : $(this).addClass('active')
+		$(this).addClass('active');
+		timeBlock = $(this).data('time');
 	})
 
 	$(document).on('click', '.servicePage', function() {
@@ -260,10 +251,10 @@
 	// Обработчик нажатия на кнопку "Далее"
 	document.getElementById('nextButton').addEventListener('click', function() {
 		// Записываем значения выбранных элементов в соответствующие <input> внутри <form>
-		// document.getElementById('salonInput').value = salonName;
-		// document.getElementById('serviceInput').value = serviceName;
-		// document.getElementById('masterInput').value = masterName;
-		// document.getElementById('timeInput').value = timeBlock;
+		document.getElementById('salonInput').value = salonName;
+		document.getElementById('serviceInput').value = serviceName;
+		document.getElementById('masterInput').value = masterName;
+		document.getElementById('timeInput').value = timeBlock;
 
 		// Отправляем форму
 		document.getElementById('serviceForm').submit();
