@@ -69,10 +69,11 @@ def serviceFinally(request):
 	if request.method == 'POST':
 		print("!!!", "POST")
 		print(context['order'])
-	# 	selected_time = request.POST.get('selected_time')
-	# 	select_salon = request.POST.get('selectSalon')
-	# 	select_service = request.POST.get('selectService')
-	# 	select_master = request.POST.get('selectMaster')
+		selected_salon = request.POST.get('selected_salon')
+		selected_service = request.POST.get('selected_service')
+		selected_master = request.POST.get('selected_master')
+		selected_time = request.POST.get('selected_time')
+		print("!!!", selected_salon, selected_service, selected_master, selected_time)
 	return render(request, 'serviceFinally.html', context)
 
 
@@ -106,6 +107,7 @@ def payment(request):
 		yookassa = make_pay(PAY_ACC, PAY_KEY, amount, payment_descr, ret_url)
 		return redirect(yookassa.confirmation.confirmation_url)
 	return redirect('serviceFinally')
+
 
 def pay_result(request, context={}):
 	payment_res = request.GET['payment_success']

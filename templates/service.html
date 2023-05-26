@@ -34,10 +34,7 @@
 					<button class="service__btn btn">Запись по телефону</button>
 				</div>
 				
-				<form action="{% url 'serviceFinally' %}" class="service__form">
-
-					{% csrf_token %}
-
+				<form class="service__form">
 					<div class="service__form_block service__salons">
 						<button class="accordion">(Выберите салон)</button>
 						<div class="panel">
@@ -110,11 +107,7 @@
 							{% endif %}
 
 						</div>
-							
-						
-
 					</div>
-					
 				</form>
 			</div>
 		</div>
@@ -135,24 +128,18 @@
 									<div class="time__elems_intro">Утро</div>
 									<div class="time__elems_elem fic">
 										<button data-time="10:00" class="time__elems_btn" name="selected_time">10:00</button>
-										<button data-time="10:30" class="time__elems_btn" name="selected_time">10:30</button>
 									</div>
 								</div>
 								<div class="time__items">
 									<div class="time__elems_intro">День</div>
 									<div class="time__elems_elem fic">
 										<button data-time="12:00" class="time__elems_btn" name="selected_time">12:00</button>
-										<button data-time="12:30" class="time__elems_btn" name="selected_time">12:30</button>
-										<button data-time="15:00" class="time__elems_btn" name="selected_time">15:00</button>
-										<button data-time="16:30" class="time__elems_btn" name="selected_time">16:30</button>
 									</div>
 								</div>
 								<div class="time__items">
 									<div class="time__elems_intro">Вечер</div>
 									<div class="time__elems_elem fic">
 										<button data-time="17:00" class="time__elems_btn" name="selected_time">17:00</button>
-										<button data-time="18:30" class="time__elems_btn" name="selected_time">18:30</button>
-										<button data-time="19:00" class="time__elems_btn" name="selected_time">19:00</button>
 									</div>
 								</div>
 							</div>
@@ -162,7 +149,7 @@
 				<div class="time__btns">
 					<div class="row">
 						<div class="col-md-12">
-							<button id="Далее" class="time__btns_next">Далее</button>
+							<button id="nextButton" class="time__btns_next">Далее</button>
 							<button  class="time__btns_home">На главную</button>
 						</div>
 					</div>
@@ -171,38 +158,118 @@
 		</div>
 	</section>
 
-	<script>
+	<form id="serviceForm" action="{% url 'serviceFinally' %}" method="POST" enctype="multipart/form-data">
 
-		$(document).ready(function() {
+		{% csrf_token %}
 
-			$('.time__items .time__elems_elem .time__elems_btn').click(function(e) {
-				e.preventDefault()
-				$('.time__elems_btn').removeClass('active')
-				$(this).addClass('active')
-				// $(this).hasClass('active') ? $(this).removeClass('active') : $(this).addClass('active')
-			});
+		<input type="hidden" id="salonInput" name="selected_salon">
+		<input type="hidden" id="serviceInput" name="selected_service">
+		<input type="hidden" id="masterInput" name="selected_master">
+		<input type="hidden" id="timeInput" name="selected_time">
 
-			$(document).on('click', '.servicePage', function() {
-				if($('.time__items .time__elems_elem .time__elems_btn').hasClass('active') && $('.service__form_block > button').hasClass('selected')) {
-					$('.time__btns_next').addClass('active')
-				}
-			});
+	</form>
 
-			$('.time__btns_next').click(function(e) {
-				e.preventDefault(); // Предотвращаем стандартное поведение кнопки
-				var form = $('.service__form'); // Получаем форму
-				var formData = form.serialize(); // Собираем данные из формы
-				var url = form.attr('action'); // Получаем URL-адрес из атрибута action формы
+{% endblock %}
 
-				// Отправляем POST запрос
-				$.post(url, formData, function(response) {
-					// Обрабатываем ответ сервера
-					console.log(response);
-				});
-			});
+{% block script %}
 
+
+
+<script>
+
+	$(document).ready(function() {
+
+		// menu
+
+		$('.header__mobMenu').click(function() {
+			$('#mobMenu').show()
 		})
 
-	</script>
+		$('.mobMenuClose').click(function() {
+			$('#mobMenu').hide()
+		})
+
+		new AirDatepicker('#datepickerHere')
+
+		var acc = document.getElementsByClassName("accordion");
+		
+		var i;
+
+		for (i = 0; i < acc.length; i++) {
+			acc[i].addEventListener("click", function(e) {
+				e.preventDefault()
+				this.classList.toggle("active");
+				var panel = $(this).next()
+				panel.hasClass('active') ?  
+					 panel.removeClass('active')
+					: 
+					 panel.addClass('active')
+		});
+	}
+
+	let salonName,serviceName,masterName,timeBlock;
+
+	$(document).on('click', '.accordion__block', function(e) {
+		let thisAddress;
+		salonName = $(this).find('> .accordion__block_intro').text()
+		thisAddress = $(this).find('> .accordion__block_address').text()
+		$(this).parent().parent().find('> button.active').addClass('selected').text(salonName + '  ' +thisAddress)
+		setTimeout(() => {
+			$(this).parent().parent().find('> button.active').click()
+		}, 200)
+
+	})
+
+
+	$('.accordion__block_item').click(function(e) {
+		let thisAddress;
+		serviceName = $(this).find('> .accordion__block_item_intro').text()
+		thisAddress = $(this).find('> .accordion__block_item_address').text()
+		$(this).parent().parent().parent().parent().find('> button.active').addClass('selected').text(serviceName + '  ' +thisAddress)
+		setTimeout(() => {
+			$(this).parent().parent().parent().parent().find('> button.active').click()
+		}, 200)
+	})
+
+	$(document).on('click', '.service__masters .accordion__block', function(e) {
+		// let clone = $(this).clone()
+		masterName = $(this).find('> .accordion__block_master').text()
+		let thisProf = $(this).find('> .accordion__block_prof').text()
+		// console.log(clone)
+		// $(this).parent().parent().find('> button.active').html(clone)
+		$(this).parent().find('> button.active').addClass('selected').text(masterName + '  ' +thisProf)
+		setTimeout(() => {
+		$(this).parent().parent().find('> button.active').click()
+		}, 200)
+	})
+
+	//service
+	$('.time__items .time__elems_elem .time__elems_btn').click(function(e) {
+		e.preventDefault()
+		$('.time__elems_btn').removeClass('active')
+		$(this).addClass('active')
+		// $(this).hasClass('active') ? $(this).removeClass('active') : $(this).addClass('active')
+	})
+
+	$(document).on('click', '.servicePage', function() {
+		if($('.time__items .time__elems_elem .time__elems_btn').hasClass('active') && $('.service__form_block > button').hasClass('selected')) {
+			$('.time__btns_next').addClass('active')
+		}
+	})
+
+	// Обработчик нажатия на кнопку "Далее"
+	document.getElementById('nextButton').addEventListener('click', function() {
+		// Записываем значения выбранных элементов в соответствующие <input> внутри <form>
+		// document.getElementById('salonInput').value = salonName;
+		// document.getElementById('serviceInput').value = serviceName;
+		// document.getElementById('masterInput').value = masterName;
+		// document.getElementById('timeInput').value = timeBlock;
+
+		// Отправляем форму
+		document.getElementById('serviceForm').submit();
+	});
+
+});
+</script>
 
 {% endblock %}
