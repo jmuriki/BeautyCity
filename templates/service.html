@@ -6,8 +6,6 @@
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<!-- 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css.map">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css.map"> -->
 	<link rel="stylesheet" href="{% static 'css/bootstrap-grid.min.css' %}">
 	<link rel="stylesheet" href="{% static 'css/air-datepicker.css' %}">
 	<script src="{% static 'js/air-datepicker.js' %}"></script>
@@ -158,9 +156,15 @@
 		{% csrf_token %}
 
 		<input type="hidden" id="salonInput" name="selected_salon">
+		<input type="hidden" id="addressInput" name="selected_address">
 		<input type="hidden" id="serviceInput" name="selected_service">
+		<input type="hidden" id="priceInput" name="selected_price">
 		<input type="hidden" id="masterInput" name="selected_master">
+		<input type="hidden" id="profInput" name="selected_speciality">
 		<input type="hidden" id="timeInput" name="selected_time">
+		<input type="hidden" id="dateInput" name="selected_date">
+		<input type="hidden" id="monthInput" name="selected_month">
+		<input type="hidden" id="yearInput" name="selected_year">
 
 	</form>
 
@@ -173,8 +177,6 @@
 <script>
 
 	$(document).ready(function() {
-
-		// menu
 
 		$('.header__mobMenu').click(function() {
 			$('#mobMenu').show()
@@ -202,10 +204,12 @@
 		});
 	}
 
-	let salonName,serviceName,masterName,timeBlock;
+	let salonName, salonAddress,
+		serviceName, servicePrice,
+		masterName,masterProf,
+		timeBlock, dateBlock, monthBlock, yearBlock;
 
 	$(document).on('click', '.accordion__block_salon', function(e) {
-		let salonAddress;
 		salonName = $(this).find('> .accordion__block_intro').text()
 		salonAddress = $(this).find('> .accordion__block_address').text()
 		$(this).closest('.service__form_block').find('> button.active').addClass('selected').text(salonName + '  ' +salonAddress)
@@ -216,7 +220,6 @@
 	})
 
 	$('.accordion__block_item').click(function(e) {
-		let servicePrice;
 		serviceName = $(this).find('> .accordion__block_item_intro').text()
 		servicePrice = $(this).find('> .accordion__block_item_address').text()
 		$(this).closest('.service__form_block').find('> button.active').addClass('selected').text(serviceName + '  ' +servicePrice)
@@ -226,7 +229,6 @@
 	})
 
 	$('.accordion__block_master').click(function(e) {
-		let masterProf;
 		masterName = $(this).find('> .accordion__block_master').text();
 		masterProf = $(this).find('> .accordion__block_prof').text();
 		$(this).closest('.service__form_block').find('> button.active').addClass('selected').text(masterName + ' - ' + masterProf)
@@ -248,19 +250,29 @@
 		}
 	})
 
-	// Обработчик нажатия на кнопку "Далее"
-	document.getElementById('nextButton').addEventListener('click', function() {
-		// Записываем значения выбранных элементов в соответствующие <input> внутри <form>
-		document.getElementById('salonInput').value = salonName;
-		document.getElementById('serviceInput').value = serviceName;
-		document.getElementById('masterInput').value = masterName;
-		document.getElementById('timeInput').value = timeBlock;
+	$('.air-datepicker-cell').click(function(e) {
+		yearBlock = $(this).data('year');
+		monthBlock = $(this).data('month');
+		dateBlock = $(this).data('date');
+	})
 
-		// Отправляем форму
+	document.getElementById('nextButton').addEventListener('click', function() {
+		document.getElementById('salonInput').value = salonName;
+		document.getElementById('addressInput').value = salonAddress;
+		document.getElementById('serviceInput').value = serviceName;
+		document.getElementById('priceInput').value = servicePrice;
+		document.getElementById('masterInput').value = masterName;
+		document.getElementById('profInput').value = masterProf;
+		document.getElementById('timeInput').value = timeBlock;
+		document.getElementById('dateInput').value = dateBlock;
+		document.getElementById('monthInput').value = monthBlock;
+		document.getElementById('yearInput').value = yearBlock;
+
 		document.getElementById('serviceForm').submit();
 	});
 
 });
+
 </script>
 
 {% endblock %}

@@ -67,13 +67,16 @@ def service(request, context=None):
 def serviceFinally(request):
 	context = {'order': Order.objects.first()}
 	if request.method == 'POST':
-		print("!!!", "POST")
-		print(context['order'])
-		selected_salon = request.POST.get('selected_salon')
-		selected_service = request.POST.get('selected_service')
-		selected_master = request.POST.get('selected_master')
-		selected_time = request.POST.get('selected_time')
-		print("!!!", selected_salon, selected_service, selected_master, selected_time)
+		context['selected_salon'] = request.POST.get('selected_salon')
+		context['selected_address'] = request.POST.get('selected_address')
+		context['selected_service'] = request.POST.get('selected_service')
+		context['selected_price'] = request.POST.get('selected_price')
+		context['selected_master'] = request.POST.get('selected_master')
+		context['selected_speciality'] = request.POST.get('selected_speciality')
+		context['selected_time'] = request.POST.get('selected_time')
+		context['selected_date'] = request.POST.get('selected_date')
+		context['selected_month'] = request.POST.get('selected_month')
+		context['selected_year'] = request.POST.get('selected_year')
 	return render(request, 'serviceFinally.html', context)
 
 
