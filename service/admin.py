@@ -6,6 +6,7 @@ from .models import (
     Category,
     Service,
     Order,
+    TimeSlot
 )
 
 
@@ -39,5 +40,10 @@ class ServiceAdmin(admin.ModelAdmin):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    fields = ('client', 'procedure', 'salon', 'specialist', 'order_hour', 'order_day', 'payment_method', 'payment_status', )
-    list_display = ('client', 'procedure', 'salon', 'specialist', 'order_hour', 'order_day', 'payment_method', 'payment_status', )
+    fields = ('client', 'procedure', 'salon', 'specialist', 'order_hour', 'payment_method', 'payment_status', )
+    list_display = ('client', 'procedure', 'salon', 'specialist', 'order_hour', 'payment_method', 'payment_status', )
+
+
+@admin.register(TimeSlot)
+class TimeSlotAdmin(admin.ModelAdmin):
+    fields = ('start_time', 'date', 'specialist', 'is_working', 'is_available')
