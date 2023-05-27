@@ -221,7 +221,7 @@
 
 	$('.accordion__block_item').click(function(e) {
 		serviceName = $(this).find('> .accordion__block_item_intro').text()
-		servicePrice = $(this).find('> .accordion__block_item_address').text()
+		servicePrice = $(this).find('> .accordion__block_item_address').text().replace(' ₽', '')
 		$(this).closest('.service__form_block').find('> button.active').addClass('selected').text(serviceName + '  ' +servicePrice)
 		setTimeout(() => {
 			$(this).closest('.service__form_block').find('> button.active').click()
