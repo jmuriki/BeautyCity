@@ -12,6 +12,7 @@ urlpatterns = [
     path('popup/', views.popup, name='popup'),
     path('service/', views.service, name='service'),
     path('serviceFinally/', views.serviceFinally, name='serviceFinally'),
-    path('payment/', views.payment, name='payment'),
+    path('payment/<int:order_id>/', views.payment, name='payment'),
     path('pay_result/', views.pay_result, name='pay_result'),
+    path('order/', views.order, name='order'),
 ]

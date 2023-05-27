@@ -44,7 +44,7 @@ class Client(models.Model):
     phone = PhoneNumberField(
         'телефон',
         unique=True,
-        default='+7 111 222 33 44'
+        default='+70000000000'
     )
 
     def __str__(self):
