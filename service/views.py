@@ -17,7 +17,7 @@ def save_to_cookies(request, key, payload):
     response.set_cookie('session_id', request.session.session_key)
     return response
 
-from service.models import Salon, Category, Service, Specialist
+from service.models import Salon, Category, Service, Specialist, Client
 
 
 def index(request, context=None):
@@ -77,7 +77,29 @@ def serviceFinally(request):
 		context['selected_date'] = request.POST.get('selected_date')
 		context['selected_month'] = request.POST.get('selected_month')
 		context['selected_year'] = request.POST.get('selected_year')
+		context['new_order_number'] = Order.objects.count() + 1
 	return render(request, 'serviceFinally.html', context)
+
+
+def order(request, context=None):
+	if request.method == 'POST':
+		client, _ = Client.objects.get_or_create(
+			name=request.POST.get('client_input'),
+			phone=request.POST.get('contact_input'),
+		)
+		order = Order.objects.create(
+			client=client,
+			procedure=Service.objects.get(name=request.POST.get('selected_service')),
+			salon=Salon.objects.get(name=request.POST.get('selected_salon')),
+			specialist=Specialist.objects.get(name=request.POST.get('selected_master')),
+		)
+		# request.POST.get('selected_time')
+		# request.POST.get('selected_date')
+		# request.POST.get('selected_month')
+		# request.POST.get('selected_year')
+	if request.POST.get('is_payment') == "True":
+		return redirect('/payment/{}'.format(order.id))
+	return render(request, 'notes.html', context)
 
 
 def make_pay(pay_account, pay_secretkey, amount, payment_descr, ret_url):
@@ -97,19 +119,16 @@ def make_pay(pay_account, pay_secretkey, amount, payment_descr, ret_url):
 		})
 
 
-def payment(request):
-	if request.POST:
-		order_id = request.POST.get('order_id')
-		payment_descr = request.POST.get('payment_descr')
-		order = Order.objects.get(id=order_id)
-		amount = order.procedure.price
-		save_to_cookies(request, 'paid_order_id', order_id)
-		absolute_url = request.build_absolute_uri()
-		parsed_url = urlparse(absolute_url)
-		ret_url = f'{parsed_url.scheme}://{parsed_url.netloc}/pay_result?payment_success=1'
-		yookassa = make_pay(PAY_ACC, PAY_KEY, amount, payment_descr, ret_url)
-		return redirect(yookassa.confirmation.confirmation_url)
-	return redirect('serviceFinally')
+def payment(request, order_id):
+	order = Order.objects.get(id=order_id)
+	payment_descr = "Оплата услуги салона красоты"
+	amount = order.procedure.price
+	save_to_cookies(request, 'paid_order_id', order_id)
+	absolute_url = request.build_absolute_uri()
+	parsed_url = urlparse(absolute_url)
+	ret_url = f'{parsed_url.scheme}://{parsed_url.netloc}/pay_result?payment_success=1'
+	yookassa = make_pay(PAY_ACC, PAY_KEY, amount, payment_descr, ret_url)
+	return redirect(yookassa.confirmation.confirmation_url)
 
 
 def pay_result(request, context={}):
