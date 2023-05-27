@@ -8,11 +8,11 @@ urlpatterns = [
     path('reviews/', views.reviews, name='reviews'),
     path('services/', views.services, name='services'),
     path('admin_front/', views.admin, name='admin_front'),
-    path('notes/', views.notes, name='notes'),
+    path('notes/<int:client_id>/', views.notes, name='notes'),
     path('popup/', views.popup, name='popup'),
     path('service/', views.service, name='service'),
     path('serviceFinally/', views.serviceFinally, name='serviceFinally'),
-    path('payment/<int:order_id>/', views.payment, name='payment'),
+    path('payment/', views.payment, name='payment'),
     path('pay_result/', views.pay_result, name='pay_result'),
     path('order/', views.order, name='order'),
 ]

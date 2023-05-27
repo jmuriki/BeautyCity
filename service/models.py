@@ -251,7 +251,7 @@ class TimeSlot(models.Model):
         current_time += INTERVAL
 
     start_time = models.TimeField('Начало', choices=START_TIME_CHOICES)
-    end_time = models.TimeField('Конец', editable=False)  # New field
+    end_time = models.TimeField('Конец', editable=False, null=True, blank=True)  # New field
     date = models.ForeignKey(WorkDay, on_delete=models.CASCADE, related_name='appointments')
     specialist = models.ForeignKey(
         Specialist,
