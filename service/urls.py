@@ -15,5 +15,6 @@ urlpatterns = [
     path('payment/', views.payment, name='payment'),
     path('pay_result/', views.pay_result, name='pay_result'),
     path('get_masters/', views.get_masters, name='get_masters'),
-    path('get_available_time/', views.get_available_time, name='get_available_time')
+    path('get_available_time/', views.get_available_time, name='get_available_time'),
+    path('order/', views.order, name='order'),
 ]

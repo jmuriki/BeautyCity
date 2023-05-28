@@ -15,10 +15,11 @@
 						<div class="service__block">
 							<h1 class="service__title">Запись на услугу</h1>
 						</div>
-						<form action="#" class="serviceFinally__form">
+						<form class="serviceFinally__form" method="POST" action="{% url 'order' %}" enctype="multipart/form-data">
+							{% csrf_token %}
 							<div class="serviceFinally__form_block">
 								<div class="serviceFinally__form_header fic">
-									<span class="serviceFinally__form_header__number">Запись №32985</span>
+									<span class="serviceFinally__form_header__number">Запись №{{ new_order_number }}</span>
 									<div class="serviceFinally__form_header__item fic">
 										<div class="serviceFinally__form_header__service">{{ selected_salon }}</div>
 										<div class="serviceFinally__form_header__address">{{ selected_address }}</div>
@@ -31,10 +32,10 @@
 									</div>
 									<div class="serviceFinally__form_content__block fic">
 										<div class="serviceFinally__form_content__items fic">
-										  	<img src="{% static 'img/masters/avatar/vizajist1.svg' %}" alt="avatar" class="accordion__block_img">
-										  	<div class="accordion__block_master">{{ selected_master }} - {{ selected_speciality }}</div>
-									    </div>
-									    <div class="serviceFinally__form_content__item fic">
+											<img src="{{ specialist.foto.url }}" alt="avatar" class="accordion__block_img">
+											<div class="accordion__block_master">{{ selected_master }} - {{ selected_speciality }}</div>
+										</div>
+										<div class="serviceFinally__form_content__item fic">
 											<div class="serviceFinally__form_content__time">{{ selected_time }}</div>
 											<div class="serviceFinally__form_content__date">{{ selected_date }}.{{ selected_month }}.{{ selected_year }}</div>
 										</div>
@@ -44,36 +45,39 @@
 							</div>
 							<div class="serviceFinally__form_itesm">
 								<div class="contacts__form_block fic">
-									<input type="text" name="fname" class="contacts__form_iunput" placeholder="Введите имя" required="">
+									<input type="text" name="fname" class="contacts__form_iunput" placeholder="Введите имя" required="" oninput="ClientInputValue(this.value)">
 									<div class="contacts__form_inputBlock">
-										<input type="text" name="tel" class="contacts__form_iunput" placeholder="+7(999)999--99-99" required="">
+										<input type="text" name="tel" class="contacts__form_iunput" placeholder="+7(999)999--99-99" required="" oninput="ContactInputValue(this.value)">
 									</div>
 								</div>
 								
-								<textarea name="contactsTextarea" class="contacts__form_textarea" placeholder="Вопрос(необязательно)"></textarea>
+								<textarea name="contactsTextarea" class="contacts__form_textarea" oninput="CommentInputValue(this.value)"placeholder="Вопрос(необязательно)"></textarea>
 								<div class="contacts__form_checkboxBlock fic">
 									<input type="checkbox" class="contacts__form_checkbox" checked="">
 									<span class="contacts__form_checkboxBlock__intro">Я согласен(а) с политикой конфидециоальности</span>
 								</div>
-								<form method="POST" action="{% url 'payment' %}">
-									{% csrf_token %}
-									<input type="hidden" name="order_id" value="{{ order.id }}">
-									<input type="hidden" name="payment_descr" value="Оформление записи">
-									<button type="submit" class="serviceFinallys__form_btn">Записаться без оплаты</button>
-								<form method="POST" action="{% url 'payment' %}">
-									{% csrf_token %}
-									<input type="hidden" name="order_id" value="{{ order.id }}">
-									<input type="hidden" name="payment_descr" value="Оплата услуги">
-									<div><button class="serviceFinallys__form_btn" onclick="location.href='{% url 'payment' %}'">Записаться и оплатить</button>
-									</div>
-								</form>
-								<button type="submit" class="serviceFinallys__form_back">Назад</button>
+								<input type="hidden" id="orderClientInput" name="client_input">
+								<input type="hidden" id="orderContactInput" name="contact_input">
+								<input type="hidden" id="orderCommentInput" name="comment_input">
+								<input type="hidden" name="selected_salon" value="{{ selected_salon }}">
+								<input type="hidden" name="selected_address" value="{{ selected_address }}">
+								<input type="hidden" name="selected_service" value="{{ selected_service }}">
+								<input type="hidden" name="selected_price" value="{{ selected_price }}">
+								<input type="hidden" name="selected_master" value="{{ selected_master }}">
+								<input type="hidden" name="selected_speciality" value="{{ selected_speciality }}">
+								<input type="hidden" name="selected_time" value="{{ selected_time }}">
+								<input type="hidden" name="selected_date" value="{{ selected_date }}">
+								<input type="hidden" name="selected_month" value="{{ selected_month }}">
+								<input type="hidden" name="selected_year" value="{{ selected_year }}">
+								<div>
+									<button type="submit" class="serviceFinallys__form_btn">Записаться</button>
+									<button class="serviceFinallys__form_back">Назад</button>
+								</div>
 							</div>
 						</form>
-
 					</div>
 					<div class="col-md-12 col-lg-5">
-						<img src="{% static 'img/bannerImg.svg' %}" alt="bannerImg" class="banner__img">
+						<img src="{% static 'images/bannerImg.png' %}" alt="bannerImg" class="banner__img">
 					</div>
 				</div>
 			</div>
@@ -82,11 +86,28 @@
 
 {% endblock %}
 
+{% block script %}
+
+<script>
+	function ClientInputValue(value) {
+		document.getElementById('orderClientInput').value = value;
+	};
+
+	function ContactInputValue(value) {
+		document.getElementById('orderContactInput').value = value;
+	};
+	function CommentInputValue(value) {
+		document.getElementById('orderCommentInput').value = value;
+	};
+</script>
+
+{% endblock %}
+
 {% block hidden %}
 
 	<div style="display: none;">
 		<div class="box-modal authPopup popup" id="authModal">
-			<div class="box-modal_close arcticmodal-close"><img src="{% static 'img/x.svg' %}" alt="x"></div>
+			<div class="box-modal_close arcticmodal-close"><img src="{% static 'images/x.png' %}" alt="x"></div>
 			<div class="popup__title authPopup__title">Войти по коду</div>
 			<p class="popup__text authPopup__text">Введите свой номер телефона, мы вышлем на него код</p>
 			<form action="#" class="authPopup__form">
@@ -103,7 +124,7 @@
 	</div>
 	<div style="display: none;">
 		<div class="box-modal confirmPopup popup" id="confirmModal">
-			<div class="box-modal_close arcticmodal-close"><img src="{% static 'img/x.svg' %}" alt="x"></div>
+			<div class="box-modal_close arcticmodal-close"><img src="{% static 'images/x.png' %}" alt="x"></div>
 			<div class="popup__title confirmPopup__title">Подтвердите номер</div>
 			<p class="popup__text confirmPopup__text">Введите код, полученный по SMS на номер +7 (928) 164 48 60</p>
 			<div class="confirmPopup__number">

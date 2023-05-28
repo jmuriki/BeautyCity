@@ -1,180 +1,192 @@
 <!DOCTYPE html>
 {% extends 'base.html' %}
 {% load static %}
+
 {% block links %}
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"
-          integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw=="
-          crossorigin="anonymous" referrerpolicy="no-referrer"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"
-          integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A=="
-          crossorigin="anonymous" referrerpolicy="no-referrer"/>
-    <link rel="stylesheet" href="{% static 'css/bootstrap-grid.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/air-datepicker.css' %}">
-    <script src="{% static 'js/air-datepicker.js' %}"></script>
-    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="{% static 'css/bootstrap-grid.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/air-datepicker.css' %}">
+	<script src="{% static 'js/air-datepicker.js' %}"></script>
+	<link rel="stylesheet" href="{% static 'css/main.css' %}">
 
 {% endblock %}
 
 {% block body %}
 
-    <body class="servicePage">
+<body class="servicePage">
 
 {% endblock %}
 
 {% block content %}
 
-    <section id="service">
-        <div class="container">
-            <div class="service">
-                <div class="breadCrumbs">
-                    <a href="{% url 'main_page' %}" class="breadCrumbs__item">На главную</a>
-                </div>
-                <div class="service__block">
-                    <h1 class="service__title">Запись на услугу</h1>
-                    <button class="service__btn btn">Запись по телефону</button>
-                </div>
+	<section id="service">
+		<div class="container">
+			<div class="service">
+				<div class="breadCrumbs">
+					<a href="{% url 'main_page' %}" class="breadCrumbs__item">На главную</a>
+				</div>
+				<div class="service__block">
+					<h1 class="service__title">Запись на услугу</h1>
+					<button class="service__btn btn">Запись по телефону</button>
+				</div>
+				
+				<form class="service__form">
+                <div class="dropdowns_container">
+					<div class="service__form_block">
+						<button class="accordion">(Выберите салон)</button>
+						<div class="panel">
 
-                <form class="service__form">
-                    <div class="dropdowns_container">
-                        <div class="service__form_block ">
-                            <button class="accordion">(Выберите салон)</button>
-                            <div class="panel">
+							{% if salons %}
 
-                                {% if salons %}
+								{% for salon in salons %}
 
-                                    {% for salon in salons %}
+									<div class="accordion__block accordion__block_salon fic">
+										<div class="accordion__block_intro">{{ salon.name }}</div>
+										<div class="accordion__block_address">{{ salon.address }}</div>
+									</div>
 
-                                        <div class="accordion__block accordion__block_salon fic">
-                                            <div class="accordion__block_intro">{{ salon.name }}</div>
-                                            <div class="accordion__block_address">{{ salon.address }}</div>
-                                        </div>
+								{% endfor %}
 
-                                    {% endfor %}
+							{% endif %}
 
-                                {% endif %}
-
-                            </div>
                         </div>
+                    </div>
+                </div>
                         <div class="service__form_block service__services">
                             <button class="accordion">(Выберите услугу)</button>
                             <div class="panel">
 
-                                {% if categories %}
+							{% if categories %}
 
-                                    {% for category in categories %}
+								{% for category in categories %}
 
-                                        <button class="accordion">{{ category }}</button>
-                                        <div class="panel">
+									<button class="accordion">{{ category }}</button>
+									<div class="panel">
 
-                                            {% for service in category.services.all %}
+										{% for service in category.services.all %}
 
-                                                <div class="accordion__block_items">
-                                                    <div class="accordion__block_item fic">
-                                                        <div class="accordion__block_item_intro">{{ service.name }}</div>
-                                                        <div class="accordion__block_item_address">{{ service.price }} ₽
-                                                        </div>
-                                                    </div>
-                                                </div>
+											<div class="accordion__block_items">
+												<div class="accordion__block_item fic">
+													<div class="accordion__block_item_intro">{{ service.name }}</div>
+													<div class="accordion__block_item_address">{{ service.price }} ₽</div>
+												</div>
+											</div>
 
-                                            {% endfor %}
+										{% endfor %}
 
-                                        </div>
+									</div>
 
-                                    {% endfor %}
+								{% endfor %}
 
-                                {% endif %}
+							{% endif %}
 
-                            </div>
-                        </div>
-                    </div>
+						</div>
+					</div>
+{#					<div class="service__form_block">#}
+{#						<button class="accordion">(Выберите мастера)</button>#}
+{#						<div class="panel">#}
+{##}
+{#							{% if masters %}#}
+{##}
+{#								{% for master in masters %}#}
+{##}
+{#									<div class="accordion__block accordion__block_master fic">#}
+{#										<div class="accordion__block_master">{{ master.name }}</div>#}
+{#										<div class="accordion__block_prof">{{ master.specialization }}</div>#}
+{#									</div>#}
+{##}
+{#								{% endfor %}#}
+{##}
+{#							{% endif %}#}
+{##}
+{#						</div>#}
+{#					</div>#}
+				</form>
+			</div>
+		</div>
+	</section>
 
-                    {#                    <div class="service__form_block">#}
-                    {#                        <button class="accordion">(Выберите мастера)</button>#}
-                    {#                        <div class="panel">#}
-                    {##}
-                    {#                            {% if masters %}#}
-                    {##}
-                    {#                                {% for master in masters %}#}
-                    {##}
-                    {#                                    <div class="accordion__block accordion__block_master fic">#}
-                    {#                                        <img src="{{ master.foto.url }}" alt="avatar" class="accordion__block_img">#}
-                    {#                                        <div class="accordion__block_master">{{ master.name }}</div>#}
-                    {#                                        <div class="accordion__block_prof">{{ master.specialization }}</div>#}
-                    {#                                    </div>#}
-                    {##}
-                    {#                                {% endfor %}#}
-                    {##}
-                    {#                            {% endif %}#}
-                    {##}
-                    {#                        </div>#}
-                    {#                    </div>#}
-                </form>
-            </div>
-        </div>
-    </section>
+	<section id="time">
+		<div class="container">
+			<div class="time">
+				<h2 class="time__title">Выберите время</h2>
+				<div class="time__block">
+					<div class="row">
+						<div class="col-md-4">
+							<div id="datepickerHere"></div>
+						</div>
+						<div class="col-md-8">
+							<div class="time__elems">
+								<div class="time__items">
+									<div class="time__elems_intro">Утро</div>
+									<div class="time__elems_elem fic">
+										<button data-time="10:00" class="time__elems_btn">10:00</button>
+										<button data-time="10:30" class="time__elems_btn">10:30</button>
+										<button data-time="11:00" class="time__elems_btn">11:00</button>
+										<button data-time="11:30" class="time__elems_btn">11:30</button>
+									</div>
+								</div>
+								<div class="time__items">
+									<div class="time__elems_intro">День</div>
+									<div class="time__elems_elem fic">
+										<button data-time="12:00" class="time__elems_btn">12:00</button>
+										<button data-time="12:30" class="time__elems_btn">12:30</button>
+										<button data-time="13:00" class="time__elems_btn">13:00</button>
+										<button data-time="13:30" class="time__elems_btn">13:30</button>
+										<button data-time="14:00" class="time__elems_btn">14:00</button>
+										<button data-time="14:30" class="time__elems_btn">14:30</button>
+										<button data-time="15:00" class="time__elems_btn">15:00</button>
+										<button data-time="15:30" class="time__elems_btn">15:30</button>
+										<button data-time="16:00" class="time__elems_btn">16:00</button>
+										<button data-time="16:30" class="time__elems_btn">16:30</button>
+									</div>
+								</div>
+								<div class="time__items">
+									<div class="time__elems_intro">Вечер</div>
+									<div class="time__elems_elem fic">
+										<button data-time="17:00" class="time__elems_btn">17:00</button>
+										<button data-time="17:30" class="time__elems_btn">17:30</button>
+										<button data-time="18:00" class="time__elems_btn">18:00</button>
+										<button data-time="18:30" class="time__elems_btn">18:30</button>
+										<button data-time="19:00" class="time__elems_btn">19:00</button>
+										<button data-time="19:30" class="time__elems_btn">19:30</button>
+										<button data-time="20:00" class="time__elems_btn">20:00</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="time__btns">
+					<div class="row">
+						<div class="col-md-12">
+							<button id="nextButton" class="time__btns_next">Далее</button>
+							<button  class="time__btns_home">На главную</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 
-    <section id="time">
-        <div class="container">
-            <div class="time">
-                <h2 class="time__title">Выберите время</h2>
-                <div class="time__block">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div id="datepickerHere"></div>
-                        </div>
-                        <div class="col-md-8">
-                            <div class="time__elems">
-                                <div class="time__items">
-                                    <div class="time__elems_intro">Утро</div>
-                                    <div class="time__elems_elem fic">
-                                        <button data-time="10:00" class="time__elems_btn">10:00</button>
-                                    </div>
-                                </div>
-                                <div class="time__items">
-                                    <div class="time__elems_intro">День</div>
-                                    <div class="time__elems_elem fic">
-                                        <button data-time="12:00" class="time__elems_btn">12:00</button>
-                                    </div>
-                                </div>
-                                <div class="time__items">
-                                    <div class="time__elems_intro">Вечер</div>
-                                    <div class="time__elems_elem fic">
-                                        <button data-time="17:00" class="time__elems_btn">17:00</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="time__btns">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <button id="nextButton" class="time__btns_next">Далее</button>
-                            <button class="time__btns_home">На главную</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+	<form id="serviceForm" action="{% url 'serviceFinally' %}" method="POST" enctype="multipart/form-data">
 
-    <form id="serviceForm" action="{% url 'serviceFinally' %}" method="POST" enctype="multipart/form-data">
+		{% csrf_token %}
 
-        {% csrf_token %}
+		<input type="hidden" id="salonInput" name="selected_salon">
+		<input type="hidden" id="addressInput" name="selected_address">
+		<input type="hidden" id="serviceInput" name="selected_service">
+		<input type="hidden" id="priceInput" name="selected_price">
+		<input type="hidden" id="masterInput" name="selected_master">
+		<input type="hidden" id="profInput" name="selected_speciality">
+		<input type="hidden" id="timeInput" name="selected_time">
+		<input type="hidden" id="dateInput" name="selected_date">
+		<input type="hidden" id="monthInput" name="selected_month">
+		<input type="hidden" id="yearInput" name="selected_year">
 
-        <input type="hidden" id="salonInput" name="selected_salon">
-        <input type="hidden" id="addressInput" name="selected_address">
-        <input type="hidden" id="serviceInput" name="selected_service">
-        <input type="hidden" id="priceInput" name="selected_price">
-        <input type="hidden" id="masterInput" name="selected_master">
-        <input type="hidden" id="profInput" name="selected_speciality">
-        <input type="hidden" id="timeInput" name="selected_time">
-        <input type="hidden" id="dateInput" name="selected_date">
-        <input type="hidden" id="monthInput" name="selected_month">
-        <input type="hidden" id="yearInput" name="selected_year">
-
-    </form>
+	</form>
 
 {% endblock %}
 
@@ -182,171 +194,105 @@
 
 
 
-    <script>
+<script>
 
-        $(document).ready(function () {
+	$(document).ready(function() {
 
+		$('.header__mobMenu').click(function() {
+			$('#mobMenu').show()
+		})
 
-            $('.header__mobMenu').click(function () {
-                $('#mobMenu').show()
-            })
+		$('.mobMenuClose').click(function() {
+			$('#mobMenu').hide()
+		})
 
-            $('.mobMenuClose').click(function () {
-                $('#mobMenu').hide()
-            })
+		new AirDatepicker('#datepickerHere')
 
-            new AirDatepicker('#datepickerHere')
+		var acc = document.getElementsByClassName("accordion");
+		
+		var i;
 
-            let salonName, salonAddress,
-                serviceName, servicePrice,
-                masterName, masterProf,
-                timeBlock, dateBlock, monthBlock, yearBlock;
+		for (i = 0; i < acc.length; i++) {
+			acc[i].addEventListener("click", function(e) {
+				e.preventDefault()
+				this.classList.toggle("active");
+				var panel = $(this).next()
+				panel.hasClass('active') ?  
+					 panel.removeClass('active')
+					: 
+					 panel.addClass('active')
+		});
+	}
 
-            $(document).on('click', '.accordion', function (e) {
-                e.preventDefault()
-                const accordion = e.target
-                accordion.classList.toggle("active");
-                const panel = $(accordion).next()
-                panel.toggleClass('active')
-                panel.hasClass('active') ? panel.show() : panel.hide()
+	let salonName, salonAddress,
+		serviceName, servicePrice,
+		masterName,masterProf,
+		timeBlock, dateBlock, monthBlock, yearBlock;
 
-            })
-            $(document).on('click', '.accordion__master_block', function (e) {
-                e.preventDefault()
-                const masterDiv = $(this)
-                const masterDropdown = masterDiv.parent().parent().parent().parent()
+	$(document).on('click', '.accordion__block_salon', function(e) {
+		salonName = $(this).find('> .accordion__block_intro').text()
+		salonAddress = $(this).find('> .accordion__block_address').text()
+		$(this).closest('.service__form_block').find('> button.active').addClass('selected').text(salonName + '  ' +salonAddress)
+		setTimeout(() => {
+			$(this).closest('.service__form_block').find('> button.active').click()
+		}, 200)
 
-                const masterIntro = masterDiv.find('.accordion__block_intro')
-                const masterName = masterIntro.text()
-                const masterId = masterIntro.data('master_id')
+	})
 
-                masterDropdown.nextAll('.service__master').remove()
+	$('.accordion__block_item').click(function(e) {
+		serviceName = $(this).find('> .accordion__block_item_intro').text()
+		servicePrice = $(this).find('> .accordion__block_item_address').text().replace(' ₽', '')
+		$(this).closest('.service__form_block').find('> button.active').addClass('selected').text(serviceName + '  ' +servicePrice)
+		setTimeout(() => {
+			$(this).closest('.service__form_block').find('> button.active').click()
+		}, 200)
+	})
 
-                const accordion_btn = masterDiv.parent().parent().find('> button.accordion')
-                accordion_btn.addClass('selected').text(masterName)
-                accordion_btn.trigger('click')
-            })
+	$('.accordion__block_master').click(function(e) {
+		masterName = $(this).find('> .accordion__block_master').text();
+		masterProf = $(this).find('> .accordion__block_prof').text();
+		$(this).closest('.service__form_block').find('> button.active').addClass('selected').text(masterName + ' - ' + masterProf)
+		setTimeout(() => {
+			$(this).closest('.service__form_block').find('> button.active').click()
+		}, 200)
+	});
 
-                    const buildMaster = (master) => {
-                        return $(`<div class="accordion__block accordion__master_block fic">
-                                <div class="accordion__block_intro" data-master_id="${master.id}">${master.name}</div>
-                              </div>`)
-                    }
+	$('.time__items .time__elems_elem .time__elems_btn').click(function(e) {
+		e.preventDefault()
+		$('.time__elems_btn').removeClass('active')
+		$(this).addClass('active');
+		timeBlock = $(this).data('time');
+	})
 
-                    const renderMasters = (data) => {
-                        const accordionBtn = $('<button class="accordion">(Выберите мастера)</button>')
-                        const masters = data.map(buildMaster)
-                        const masters_wrapper = $('<div class="panel"></div>').append(masters)
+	$(document).on('click', '.servicePage', function() {
+		if($('.time__items .time__elems_elem .time__elems_btn').hasClass('active') && $('.service__form_block > button').hasClass('selected')) {
+			$('.time__btns_next').addClass('active')
+		}
+	})
 
+	$('.air-datepicker-cell').click(function(e) {
+		yearBlock = $(this).data('year');
+		monthBlock = $(this).data('month');
+		dateBlock = $(this).data('date');
+	})
 
-                        const masters_block = $(`<div class="service__form_block service__masters"></div>`).append(
-                            accordionBtn,
-                            masters_wrapper
-                        )
+	document.getElementById('nextButton').addEventListener('click', function() {
+		document.getElementById('salonInput').value = salonName;
+		document.getElementById('addressInput').value = salonAddress;
+		document.getElementById('serviceInput').value = serviceName;
+		document.getElementById('priceInput').value = servicePrice;
+		document.getElementById('masterInput').value = masterName;
+		document.getElementById('profInput').value = masterProf;
+		document.getElementById('timeInput').value = timeBlock;
+		document.getElementById('dateInput').value = dateBlock;
+		document.getElementById('monthInput').value = monthBlock;
+		document.getElementById('yearInput').value = yearBlock;
 
-                        $('.dropdowns_container').append(masters_block)
-                    }
+		document.getElementById('serviceForm').submit();
+	});
 
+});
 
-                    $(document).on('click', '.accordion__block_salon', function (e) {
-                        const serviceDiv = $(this)
-                        const serviceDropdown = serviceDiv.parent().parent().parent().parent()
-                        salonName = $(this).find('> .accordion__block_intro').text()
-                        salonAddress = $(this).find('> .accordion__block_address').text()
-                        $(this).closest('.service__form_block').find('> button.active').addClass('selected').text(salonName + '  ' + salonAddress)
-                        setTimeout(() => {
-                            $(this).closest('.service__form_block').find('> button.active').click()
-                        }, 200)
-
-                        const master_selected = $('.service__masters').remove()
-                        serviceDropdown.nextAll('.service__form_block').remove()
-
-                                $.ajax({
-                                url: '/get_masters/',
-                                type: "GET",
-                                dataType: "json",
-                                data: {
-                                    'salonName': salonName,
-                                    'salonAddress': salonAddress,
-                                    csrfmiddlewaretoken: '{{ csrf_token }}'
-                                },
-                                success: (data) => {
-                                    console.log(data.data);
-                                    renderMasters(data.data)
-                                },
-                                error: (error) => {
-                                    console.log(error);
-                                    alert(response["responseJSON"]["error"]);
-                                }
-                            }
-                        )
-
-                        const accordion_btn = serviceDropdown.find('> button.active')
-                        accordion_btn.addClass('selected').text(serviceName)
-                        accordion_btn.trigger('click')
-
-                    })
-
-
-
-
-                    $('.accordion__block_item').click(function (e) {
-                        serviceName = $(this).find('> .accordion__block_item_intro').text()
-                        servicePrice = $(this).find('> .accordion__block_item_address').text().replace(' ₽', '')
-                        $(this).closest('.service__form_block').find('> button.active').addClass('selected').text(serviceName + '  ' + servicePrice)
-                        setTimeout(() => {
-                            $(this).closest('.service__form_block').find('> button.active').click()
-                        }, 200)
-                    })
-
-                    $('.accordion__block_master').click(function (e) {
-                        masterName = $(this).find('> .accordion__block_master').text();
-                        masterProf = $(this).find('> .accordion__block_prof').text();
-                        $(this).closest('.service__form_block').find('> button.active').addClass('selected').text(masterName + ' - ' + masterProf)
-                        setTimeout(() => {
-                            $(this).closest('.service__form_block').find('> button.active').click()
-                        }, 200)
-                       })
-
-                    $('.time__items .time__elems_elem .time__elems_btn').click(function (e) {
-                        e.preventDefault()
-                        $('.time__elems_btn').removeClass('active')
-                        $(this).addClass('active');
-                        timeBlock = $(this).data('time');
-                    })
-
-                    $(document).on('click', '.servicePage', function () {
-                        if ($('.time__items .time__elems_elem .time__elems_btn').hasClass('active') && $('.service__form_block > button').hasClass('selected')) {
-                            $('.time__btns_next').addClass('active')
-                        }
-                    })
-
-                    $('.air-datepicker-cell').click(function (e) {
-                        yearBlock = $(this).data('year');
-                        monthBlock = $(this).data('month');
-                        dateBlock = $(this).data('date');
-                    })
-
-                    document.getElementById('nextButton').addEventListener('click', function () {
-                        document.getElementById('salonInput').value = salonName;
-                        document.getElementById('addressInput').value = salonAddress;
-                        document.getElementById('serviceInput').value = serviceName;
-                        document.getElementById('priceInput').value = servicePrice;
-                        document.getElementById('masterInput').value = masterName;
-                        document.getElementById('profInput').value = masterProf;
-                        document.getElementById('timeInput').value = timeBlock;
-                        document.getElementById('dateInput').value = dateBlock;
-                        document.getElementById('monthInput').value = monthBlock;
-                        document.getElementById('yearInput').value = yearBlock;
-
-                        document.getElementById('serviceForm').submit();
-                    });
-
-
-                }
-            )
-
-
-    </script>
+</script>
 
 {% endblock %}

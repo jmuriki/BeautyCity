@@ -143,3 +143,4 @@ hidden/
 migrations/
 service/migrations/
 .idea/
+media/

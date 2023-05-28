@@ -6,7 +6,8 @@ from .models import (
     Category,
     Service,
     Order,
-    TimeSlot
+    TimeSlot,
+    WorkDay
 )
 
 
@@ -21,10 +22,16 @@ class ClientAdmin(admin.ModelAdmin):
     list_display = ('name', 'phone', )
 
 
+class WorkDayInline(admin.TabularInline):
+    model = Specialist.workdays.through
+    extra = 0
+
+
 @admin.register(Specialist)
 class SpecialistAdmin(admin.ModelAdmin):
-    fields = ('name', 'specialization', 'salon', 'foto', 'experience',)
+    fields = ('name', 'specialization', 'salon', 'foto', 'experience', )
     list_display = ('name', 'specialization', 'salon', 'foto', 'experience',)
+    inlines = [WorkDayInline]
 
 
 @admin.register(Category)
@@ -40,10 +47,18 @@ class ServiceAdmin(admin.ModelAdmin):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    fields = ('client', 'procedure', 'salon', 'specialist', 'order_hour', 'payment_method', 'payment_status', )
+    fields = ('client', 'procedure', 'salon', 'specialist', 'order_hour', 'payment_method', 'payment_status', 'comment')
     list_display = ('client', 'procedure', 'salon', 'specialist', 'order_hour', 'payment_method', 'payment_status', )
 
 
 @admin.register(TimeSlot)
 class TimeSlotAdmin(admin.ModelAdmin):
-    fields = ('start_time', 'date', 'specialist', 'is_working', 'is_available')
+    fields = ('start_time', 'date', 'specialist', 'is_available')
+
+
+@admin.register(WorkDay)
+class WorkDayAdmin(admin.ModelAdmin):
+    pass
+
+
+

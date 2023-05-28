@@ -44,7 +44,7 @@ class Client(models.Model):
     phone = PhoneNumberField(
         'телефон',
         unique=True,
-        default='+7 111 222 33 44'
+        default='+70000000000'
     )
 
     def __str__(self):
@@ -54,6 +54,16 @@ class Client(models.Model):
         verbose_name = 'Клиент'
         verbose_name_plural = 'Клиенты'
 
+class WorkDay(models.Model):
+    date = models.DateField()
+    specialists = models.ManyToManyField('Specialist', related_name='workdays', blank=True)
+
+    def __str__(self):
+        return f'{self.date}'
+
+    class Meta:
+        verbose_name = 'Рабочий день'
+        verbose_name_plural = 'Рабочие дни'
 
 class Specialist(models.Model):
     name = models.CharField(
@@ -80,7 +90,6 @@ class Specialist(models.Model):
         null=True,
         blank=True
     )
-
     experience = models.CharField(
         'Стаж работы',
         max_length=255,
@@ -191,6 +200,10 @@ class Order(models.Model):
         on_delete=models.CASCADE,
         db_index=True
     )
+    comment = models.TextField(
+        verbose_name='Комментарий',
+        blank=True,
+    )
     order_hour = models.ForeignKey(
         'TimeSlot',
         verbose_name='Время приема',
@@ -242,10 +255,14 @@ class TimeSlot(models.Model):
         current_time += INTERVAL
 
     start_time = models.TimeField('Начало', choices=START_TIME_CHOICES)
-    end_time = models.TimeField('Конец', editable=False)  # New field
-    date = models.DateField('Дата')
-    specialist = models.ManyToManyField(Specialist, related_name='appointments', verbose_name='Специалист')
-    is_working = models.BooleanField(default=False)
+    end_time = models.TimeField('Конец', editable=False, null=True, blank=True)  # New field
+    date = models.ForeignKey(WorkDay, on_delete=models.CASCADE, related_name='appointments')
+    specialist = models.ForeignKey(
+        Specialist,
+        verbose_name='Специалист',
+        on_delete=models.CASCADE,
+        null=True
+    )
     is_available = models.BooleanField(default=True)
     daytime = models.CharField(
         max_length=1,
@@ -260,11 +277,10 @@ class TimeSlot(models.Model):
         verbose_name_plural = 'Временные периоды'
 
     def __str__(self):
-        return f'{self.start_time}:{self.end_time}'
+        return f'{self.start_time}:{self.end_time} - {self.date.date}'
 
     def clean(self, ):
-        if not self.is_working:
-            self.is_available = False
+        super().clean()
         if self.start_time < time(10, 0) or self.start_time > time(19, 30):
             raise ValidationError("Время должно быть между 10:00 и 19:30")
         if time(10, 0) <= self.start_time < time(11, 30):
@@ -274,8 +290,9 @@ class TimeSlot(models.Model):
         else:
             self.daytime = 'E'
 
-        start_datetime = datetime.combine(self.date, self.start_time)
+        start_datetime = datetime.combine(self.date.date, self.start_time)
         end_datetime = start_datetime + timedelta(minutes=30)
         self.end_time = end_datetime.time().strftime('%H:%M')
 
-        super(TimeSlot, self).clean()
+        self.is_available = self.specialist in self.date.specialists.all()
+
