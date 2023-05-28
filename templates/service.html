@@ -238,10 +238,10 @@
                 accordion_btn.addClass('selected').text(masterName)
                 accordion_btn.trigger('click')
             })
-
                     const buildMaster = (master) => {
-                        return $(`<div class="accordion__block accordion__master_block fic">
-                                <div class="accordion__block_intro" data-master_id="${master.id}">${master.name}</div>
+                        return $(`<div class="accordion__block  accordion__block_master fic">
+                                <div class="accordion__block_intro accordion__block_master" data-master_id="${master.id}">${master.name}</div>
+                                <div class="accordion__block_intro accordion__block_prof" data-master_id="${master.specialization}">${master.specialization}</div>
                               </div>`)
                     }
 
@@ -251,7 +251,7 @@
                         const masters_wrapper = $('<div class="panel"></div>').append(masters)
 
 
-                        const masters_block = $(`<div class="service__form_block service__masters"></div>`).append(
+                        const masters_block = $(`<div class="service__form_block "></div>`).append(
                             accordionBtn,
                             masters_wrapper
                         )
