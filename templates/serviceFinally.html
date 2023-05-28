@@ -51,13 +51,14 @@
 									</div>
 								</div>
 								
-								<textarea name="contactsTextarea" class="contacts__form_textarea" placeholder="Вопрос(необязательно)"></textarea>
+								<textarea name="contactsTextarea" class="contacts__form_textarea" oninput="CommentInputValue(this.value)"placeholder="Вопрос(необязательно)"></textarea>
 								<div class="contacts__form_checkboxBlock fic">
 									<input type="checkbox" class="contacts__form_checkbox" checked="">
 									<span class="contacts__form_checkboxBlock__intro">Я согласен(а) с политикой конфидециоальности</span>
 								</div>
 								<input type="hidden" id="orderClientInput" name="client_input">
 								<input type="hidden" id="orderContactInput" name="contact_input">
+								<input type="hidden" id="orderCommentInput" name="comment_input">
 								<input type="hidden" name="selected_salon" value="{{ selected_salon }}">
 								<input type="hidden" name="selected_address" value="{{ selected_address }}">
 								<input type="hidden" name="selected_service" value="{{ selected_service }}">
@@ -94,6 +95,9 @@
 
 	function ContactInputValue(value) {
 		document.getElementById('orderContactInput').value = value;
+	};
+	function CommentInputValue(value) {
+		document.getElementById('orderCommentInput').value = value;
 	};
 </script>
 

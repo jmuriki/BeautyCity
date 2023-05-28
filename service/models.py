@@ -200,6 +200,10 @@ class Order(models.Model):
         on_delete=models.CASCADE,
         db_index=True
     )
+    comment = models.TextField(
+        verbose_name='Комментарий',
+        blank=True,
+    )
     order_hour = models.ForeignKey(
         'TimeSlot',
         verbose_name='Время приема',
