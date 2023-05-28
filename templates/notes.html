@@ -101,7 +101,13 @@
 											<div class="notes__main_number">Запись №{{ order.id }}</div>
 											<div class="notes__main_address">{{ order.salon.address }}</div>
 										</div>
-										<div class="notes__main_pay unPaid">НЕОПЛАЧЕНО</div>
+
+										{% if order.payment_status == 'paid' %}
+											<div class="notes__main_pay payid">ОПЛАЧЕНО</div>
+										{% else %}
+											<div class="notes__main_pay unPaid">НЕОПЛАЧЕНО</div>
+										{% endif %}
+
 									</div>
 									<div class="notes__main_block__main ">
 										<div class="notes__main_block__main_items">
@@ -129,12 +135,18 @@
 									<div class="notes__footer fic">
 										<a href="#" class="notes__footer_link rewiewPopupOpen">Оставить отзыв</a>
 										{# <a href="#" class="notes__footer_link tipsPopupOpen">Чаевые</a> #}
-										<form method="POST" action="{% url 'payment' %}" enctype="multipart/form-data">
-											{% csrf_token %}
-											<input type="hidden" name="order_id" value="{{ order.id }}">
-											<button type="submit" class="notes__footer_btn">Оплатить</button>
-										</form>
-										<div class="notes__main_pay unPaid">НЕОПЛАЧЕНО</div>
+
+										{% if order.payment_status == 'paid' %}
+											<div class="notes__main_pay payid">ОПЛАЧЕНО</div>
+										{% else %}
+											<form method="POST" action="{% url 'payment' %}" enctype="multipart/form-data">
+												{% csrf_token %}
+												<input type="hidden" name="order_id" value="{{ order.id }}">
+												<button type="submit" class="notes__footer_btn">Оплатить</button>
+											</form>
+											<div class="notes__main_pay unPaid">НЕОПЛАЧЕНО</div>
+										{% endif %}
+
 									</div>
 								</div>
 
@@ -155,7 +167,13 @@
 											<div class="notes__main_number">Запись №{{ order.id }}</div>
 											<div class="notes__main_address">{{ order.salon.address }}</div>
 										</div>
-										<div class="notes__main_pay payid">ОПЛАЧЕНО</div>
+
+										{% if order.payment_status == 'paid' %}
+											<div class="notes__main_pay payid">ОПЛАЧЕНО</div>
+										{% else %}
+											<div class="notes__main_pay unPaid">НЕОПЛАЧЕНО</div>
+										{% endif %}
+
 									</div>
 									<div class="notes__main_block__main ">
 										<div class="notes__main_block__main_items">
@@ -183,7 +201,18 @@
 									<div class="notes__footer fic">
 										<a href="#" class="notes__footer_link rewiewPopupOpen">Оставить отзыв</a>
 										{# <a href="#" class="notes__footer_link tipsPopupOpen">Чаевые</a> #}
-										<div class="notes__main_pay payid">ОПЛАЧЕНО</div>
+
+										{% if order.payment_status == 'paid' %}
+											<div class="notes__main_pay payid">ОПЛАЧЕНО</div>
+										{% else %}
+											<form method="POST" action="{% url 'payment' %}" enctype="multipart/form-data">
+												{% csrf_token %}
+												<input type="hidden" name="order_id" value="{{ order.id }}">
+												<button type="submit" class="notes__footer_btn">Оплатить</button>
+											</form>
+											<div class="notes__main_pay unPaid">НЕОПЛАЧЕНО</div>
+										{% endif %}
+
 									</div>
 								</div>
 							</div>
