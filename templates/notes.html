@@ -70,6 +70,9 @@
 							<div class="notes__title">Мои записи</div>
 							<hr class="hr">
 						</div>
+
+						{% if unpaid_orders_sum > 0 %}
+
 						<div class="notes__pay mob">
 							<div class="notes__pay_block">
 								<div class="notes__pay_title">Оплата услуг</div>
@@ -86,6 +89,8 @@
 								<button type="submit" class="notes__pay_btn">Оплатить онлайн</button>
 							</form>
 						</div>
+
+						{% endif %}
 
 						{% if future_orders %}
 
@@ -230,18 +235,24 @@
 						{% endif %}
 
 					</div>
-					<div class="col-md-12 col-lg-3 dec">
-						<div class="notes__pay">
-							<form method="POST" action="{% url 'payment' %}" enctype="multipart/form-data">
-								{% csrf_token %}
-								<input type="hidden" name="pay_all_unpaid_orders" value="True">
-								<button type="submit" class="notes__pay_btn">Оплатить онлайн</button>
-								<div class="notes__pay_info">Вы можете оплатить услуги прямо сейчас онлайн или расплатиться  в салоне</div>
-								<div class="notes__pay_intro">Сумма оплаты</div>
-								<div class="notes__pay_sum">{{ unpaid_orders_sum }} руб</div>
-							</form>
+
+					{% if unpaid_orders_sum > 0 %}
+
+						<div class="col-md-12 col-lg-3 dec">
+							<div class="notes__pay">
+								<form method="POST" action="{% url 'payment' %}" enctype="multipart/form-data">
+									{% csrf_token %}
+									<input type="hidden" name="pay_all_unpaid_orders" value="True">
+									<button type="submit" class="notes__pay_btn">Оплатить онлайн</button>
+									<div class="notes__pay_info">Вы можете оплатить услуги прямо сейчас онлайн или расплатиться  в салоне</div>
+									<div class="notes__pay_intro">Сумма оплаты</div>
+									<div class="notes__pay_sum">{{ unpaid_orders_sum }} руб</div>
+								</form>
+							</div>
 						</div>
-					</div>
+
+					{% endif %}
+
 				</div>
 			</div>
 		</div>
