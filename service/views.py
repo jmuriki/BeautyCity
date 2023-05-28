@@ -1,3 +1,4 @@
+import json
 import os
 import uuid
 
@@ -9,6 +10,8 @@ from beauty_city.settings import PAY_ACC, PAY_KEY
 from urllib.parse import urlparse
 from yookassa import Configuration, Payment
 
+from django.http import HttpResponseBadRequest, JsonResponse
+
 
 def save_to_cookies(request, key, payload):
     request.session[key] = payload
@@ -16,6 +19,7 @@ def save_to_cookies(request, key, payload):
     response = HttpResponse("Your choice was saved as a cookie!")
     response.set_cookie('session_id', request.session.session_key)
     return response
+
 
 from service.models import Salon, Category, Service, Specialist
 
@@ -25,102 +29,120 @@ def index(request, context=None):
 
 
 def contacts(request, context=None):
-	return render(request, 'contacts.html', context)
+    return render(request, 'contacts.html', context)
 
 
 def reviews(request, context=None):
-	return render(request, 'reviews.html', context)
+    return render(request, 'reviews.html', context)
 
 
 def masters(request, context=None):
-	return render(request, 'masters.html', context)
+    return render(request, 'masters.html', context)
 
 
 def services(request, context=None):
-	return render(request, 'services.html', context)
+    return render(request, 'services.html', context)
 
 
 def admin(request, context=None):
-	return render(request, 'admin_front.html', context)
+    return render(request, 'admin_front.html', context)
 
 
 def notes(request, context=None):
-	return render(request, 'notes.html', context)
+    return render(request, 'notes.html', context)
 
 
 def popup(request, context=None):
-	return render(request, 'popup.html', context)
+    return render(request, 'popup.html', context)
 
 
 def service(request, context=None):
-	salons = Salon.objects.prefetch_related("workers")
-	categories = Category.objects.prefetch_related("services")
-	masters = Specialist.objects.all()
-	context = {
-		"salons": salons,
-		"categories": categories,
-		"masters": masters,
-	}
-	return render(request, 'service.html', context)
+    salons = Salon.objects.prefetch_related("workers")
+    categories = Category.objects.prefetch_related("services")
+    masters = Specialist.objects.all()
+    context = {
+        "salons": salons,
+        "categories": categories,
+        "masters": masters,
+    }
+    return render(request, 'service.html', context)
 
 
 def serviceFinally(request):
-	context = {'order': Order.objects.first()}
-	if request.method == 'POST':
-		context['selected_salon'] = request.POST.get('selected_salon')
-		context['selected_address'] = request.POST.get('selected_address')
-		context['selected_service'] = request.POST.get('selected_service')
-		context['selected_price'] = request.POST.get('selected_price')
-		context['selected_master'] = request.POST.get('selected_master')
-		context['selected_speciality'] = request.POST.get('selected_speciality')
-		context['selected_time'] = request.POST.get('selected_time')
-		context['selected_date'] = request.POST.get('selected_date')
-		context['selected_month'] = request.POST.get('selected_month')
-		context['selected_year'] = request.POST.get('selected_year')
-	return render(request, 'serviceFinally.html', context)
+    context = {'order': Order.objects.first()}
+    if request.method == 'POST':
+        context['selected_salon'] = request.POST.get('selected_salon')
+        context['selected_address'] = request.POST.get('selected_address')
+        context['selected_service'] = request.POST.get('selected_service')
+        context['selected_price'] = request.POST.get('selected_price')
+        context['selected_master'] = request.POST.get('selected_master')
+        context['selected_speciality'] = request.POST.get('selected_speciality')
+        context['selected_time'] = request.POST.get('selected_time')
+        context['selected_date'] = request.POST.get('selected_date')
+        context['selected_month'] = request.POST.get('selected_month')
+        context['selected_year'] = request.POST.get('selected_year')
+    return render(request, 'serviceFinally.html', context)
 
 
 def make_pay(pay_account, pay_secretkey, amount, payment_descr, ret_url):
-	Configuration.account_id = pay_account
-	Configuration.secret_key = pay_secretkey
-	return Payment.create({
-		"amount": {
-			"value": amount,
-			"currency": "RUB"
-		},
-		"confirmation": {
-			"type": "redirect",
-			"return_url": ret_url
-		},
-		"capture": True,
-		"description": payment_descr
-		})
+    Configuration.account_id = pay_account
+    Configuration.secret_key = pay_secretkey
+    return Payment.create({
+        "amount": {
+            "value": amount,
+            "currency": "RUB"
+        },
+        "confirmation": {
+            "type": "redirect",
+            "return_url": ret_url
+        },
+        "capture": True,
+        "description": payment_descr
+    })
 
 
 def payment(request):
-	if request.POST:
-		order_id = request.POST.get('order_id')
-		payment_descr = request.POST.get('payment_descr')
-		order = Order.objects.get(id=order_id)
-		amount = order.procedure.price
-		save_to_cookies(request, 'paid_order_id', order_id)
-		absolute_url = request.build_absolute_uri()
-		parsed_url = urlparse(absolute_url)
-		ret_url = f'{parsed_url.scheme}://{parsed_url.netloc}/pay_result?payment_success=1'
-		yookassa = make_pay(PAY_ACC, PAY_KEY, amount, payment_descr, ret_url)
-		return redirect(yookassa.confirmation.confirmation_url)
-	return redirect('serviceFinally')
+    if request.POST:
+        order_id = request.POST.get('order_id')
+        payment_descr = request.POST.get('payment_descr')
+        order = Order.objects.get(id=order_id)
+        amount = order.procedure.price
+        save_to_cookies(request, 'paid_order_id', order_id)
+        absolute_url = request.build_absolute_uri()
+        parsed_url = urlparse(absolute_url)
+        ret_url = f'{parsed_url.scheme}://{parsed_url.netloc}/pay_result?payment_success=1'
+        yookassa = make_pay(PAY_ACC, PAY_KEY, amount, payment_descr, ret_url)
+        return redirect(yookassa.confirmation.confirmation_url)
+    return redirect('serviceFinally')
 
 
 def pay_result(request, context={}):
-	payment_res = request.GET['payment_success']
-	message = "Оплата не прошла."
-	if payment_res:
-		message = "Оплата прошла успешно."
-		paid_order_id = request.session.get('paid_order_id')
-		paid_order = Order.objects.get(id=paid_order_id)
-		paid_order.payment_status = 'paid'
-		paid_order.save()
-		save_to_cookies(request, 'paid_order_id', None)
-	context['payment_res'] = message
-	return render(request, 'pay_result.html', context)
+    payment_res = request.GET['payment_success']
+    message = "Оплата не прошла."
+    if payment_res:
+        message = "Оплата прошла успешно."
+        paid_order_id = request.session.get('paid_order_id')
+        paid_order = Order.objects.get(id=paid_order_id)
+        paid_order.payment_status = 'paid'
+        paid_order.save()
+        save_to_cookies(request, 'paid_order_id', None)
+    context['payment_res'] = message
+    return render(request, 'pay_result.html', context)
+
+
+def get_masters(request):
+
+    salon_name = request.GET.get('salonName')
+
+    salon = Salon.objects.get(name=salon_name)
+    print(salon)
+    specialists = list(salon.workers.values('id', 'name', 'specialization', 'foto'))
+
+    data = {
+        'data': specialists,
+    }
+    return JsonResponse(data)
+
+
+def get_available_time(request):
+    pass
