@@ -53,7 +53,7 @@
 
                         </div>
                     </div>
-                </div>
+
                         <div class="service__form_block service__services">
                             <button class="accordion">(Выберите услугу)</button>
                             <div class="panel">
@@ -84,6 +84,7 @@
 
 						</div>
 					</div>
+                </div>
 {#					<div class="service__form_block">#}
 {#						<button class="accordion">(Выберите мастера)</button>#}
 {#						<div class="panel">#}
@@ -208,36 +209,98 @@
 
 		new AirDatepicker('#datepickerHere')
 
-		var acc = document.getElementsByClassName("accordion");
-		
-		var i;
-
-		for (i = 0; i < acc.length; i++) {
-			acc[i].addEventListener("click", function(e) {
-				e.preventDefault()
-				this.classList.toggle("active");
-				var panel = $(this).next()
-				panel.hasClass('active') ?  
-					 panel.removeClass('active')
-					: 
-					 panel.addClass('active')
-		});
-	}
-
 	let salonName, salonAddress,
 		serviceName, servicePrice,
 		masterName,masterProf,
 		timeBlock, dateBlock, monthBlock, yearBlock;
 
-	$(document).on('click', '.accordion__block_salon', function(e) {
-		salonName = $(this).find('> .accordion__block_intro').text()
-		salonAddress = $(this).find('> .accordion__block_address').text()
-		$(this).closest('.service__form_block').find('> button.active').addClass('selected').text(salonName + '  ' +salonAddress)
-		setTimeout(() => {
-			$(this).closest('.service__form_block').find('> button.active').click()
-		}, 200)
+            $(document).on('click', '.accordion', function (e) {
+                e.preventDefault()
+                const accordion = e.target
+                accordion.classList.toggle("active");
+                const panel = $(accordion).next()
+                panel.toggleClass('active')
+                panel.hasClass('active') ? panel.show() : panel.hide()
 
-	})
+            })
+            $(document).on('click', '.accordion__master_block', function (e) {
+                e.preventDefault()
+                const masterDiv = $(this)
+                const masterDropdown = masterDiv.parent().parent().parent().parent()
+
+                const masterIntro = masterDiv.find('.accordion__block_intro')
+                const masterName = masterIntro.text()
+                const masterId = masterIntro.data('master_id')
+
+                masterDropdown.nextAll('.service__master').remove()
+
+                const accordion_btn = masterDiv.parent().parent().find('> button.accordion')
+                accordion_btn.addClass('selected').text(masterName)
+                accordion_btn.trigger('click')
+            })
+
+                    const buildMaster = (master) => {
+                        return $(`<div class="accordion__block accordion__master_block fic">
+                                <div class="accordion__block_intro" data-master_id="${master.id}">${master.name}</div>
+                              </div>`)
+                    }
+
+                    const renderMasters = (data) => {
+                        const accordionBtn = $('<button class="accordion">(Выберите мастера)</button>')
+                        const masters = data.map(buildMaster)
+                        const masters_wrapper = $('<div class="panel"></div>').append(masters)
+
+
+                        const masters_block = $(`<div class="service__form_block service__masters"></div>`).append(
+                            accordionBtn,
+                            masters_wrapper
+                        )
+
+                        $('.dropdowns_container').append(masters_block)
+                    }
+
+
+                    $(document).on('click', '.accordion__block_salon', function (e) {
+                        const serviceDiv = $(this)
+                        const serviceDropdown = serviceDiv.parent().parent().parent().parent()
+                        salonName = $(this).find('> .accordion__block_intro').text()
+                        salonAddress = $(this).find('> .accordion__block_address').text()
+                        $(this).closest('.service__form_block').find('> button.active').addClass('selected').text(salonName + '  ' + salonAddress)
+                        setTimeout(() => {
+                            $(this).closest('.service__form_block').find('> button.active').click()
+                        }, 200)
+
+                        const master_selected = $('.service__masters').remove()
+                        serviceDropdown.nextAll('.service__form_block').remove()
+
+                                $.ajax({
+                                url: '/get_masters/',
+                                type: "GET",
+                                dataType: "json",
+                                data: {
+                                    'salonName': salonName,
+                                    'salonAddress': salonAddress,
+                                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                                },
+                                success: (data) => {
+                                    console.log(data.data);
+                                    renderMasters(data.data)
+                                },
+                                error: (error) => {
+                                    console.log(error);
+                                    alert(response["responseJSON"]["error"]);
+                                }
+                            }
+                        )
+
+                        const accordion_btn = serviceDropdown.find('> button.active')
+                        accordion_btn.addClass('selected').text(serviceName)
+                        accordion_btn.trigger('click')
+
+                    })
+
+
+
 
 	$('.accordion__block_item').click(function(e) {
 		serviceName = $(this).find('> .accordion__block_item_intro').text()
