@@ -213,12 +213,14 @@
             })
             $(document).on('click', '.accordion__master_block', function (e) {
                 e.preventDefault()
-
                 const masterDiv = $(this)
+                const masterDropdown = masterDiv.parent().parent().parent().parent()
+
                 const masterIntro = masterDiv.find('.accordion__block_intro')
                 const masterName = masterIntro.text()
                 const masterId = masterIntro.data('master_id')
 
+                masterDropdown.nextAll('.service__master').remove()
 
                 const accordion_btn = masterDiv.parent().parent().find('> button.accordion')
                 accordion_btn.addClass('selected').text(masterName)
@@ -256,6 +258,7 @@
                             $(this).closest('.service__form_block').find('> button.active').click()
                         }, 200)
 
+                        const master_selected = $('.service__masters').remove()
                         serviceDropdown.nextAll('.service__form_block').remove()
 
                                 $.ajax({
