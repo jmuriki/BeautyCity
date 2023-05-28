@@ -131,6 +131,7 @@ def order(request, context=None):
 			salon=Salon.objects.get(name=request.POST.get('selected_salon')),
 			specialist=specialist,
 			order_hour=time_slot,
+			comment=request.POST.get('comment_input'),
 		)
 	return redirect('/notes/{}'.format(client.id))
 

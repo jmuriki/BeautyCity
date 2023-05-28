@@ -47,7 +47,7 @@ class ServiceAdmin(admin.ModelAdmin):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    fields = ('client', 'procedure', 'salon', 'specialist', 'order_hour', 'payment_method', 'payment_status', )
+    fields = ('client', 'procedure', 'salon', 'specialist', 'order_hour', 'payment_method', 'payment_status', 'comment')
     list_display = ('client', 'procedure', 'salon', 'specialist', 'order_hour', 'payment_method', 'payment_status', )
 
 
