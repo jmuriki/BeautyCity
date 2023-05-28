@@ -80,11 +80,10 @@
 								{% csrf_token %}
 								<div class="notes__pay_block">
 									<div class="notes__pay_intro">Сумма оплаты</div>
-									<div class="notes__pay_sum">{{ future_orders }} руб</div>
-									<input type="hidden" name="client" value="{{ future_orders }}">
-									<input type="hidden" name="sum" value="{{ future_orders }}">
-									<button type="submit" class="notes__pay_btn">Оплатить онлайн</button>
+									<div class="notes__pay_sum">{{ unpaid_orders_sum }} руб</div>
+									<input type="hidden" name="pay_all_unpaid_orders" value="True">
 								</div>
+								<button type="submit" class="notes__pay_btn">Оплатить онлайн</button>
 							</form>
 						</div>
 
@@ -127,7 +126,7 @@
 											</div>
 											<div class="notes__main_block__main_elems fic">
 												<div class="notes__main_block__main_elems__name otes__main_blockWidth">{{ order.specialist.name }}</div>
-												<div class="notes__main_block__main_elems__date otes__main_blockWidth">{{ order.order_hour.date.date }} - {{ order.order_hour.start_time }}</div>
+												<div class="notes__main_block__main_elems__date otes__main_blockWidth">{{ order.order_hour.date.date }} {{ order.order_hour.start_time }}</div>
 											</div>
 										</div>
 									</div>
@@ -195,7 +194,7 @@
 											</div>
 											<div class="notes__main_block__main_elems fic">
 												<div class="notes__main_block__main_elems__name otes__main_blockWidth">{{ order.specialist.name }}</div>
-												<div class="notes__main_block__main_elems__date otes__main_blockWidth">{{ order.order_hour.date.date }} - {{ order.order_hour.start_time }}</div>
+												<div class="notes__main_block__main_elems__date otes__main_blockWidth">{{ order.order_hour.date.date }} {{ order.order_hour.start_time }}</div>
 											</div>
 										</div>
 									</div>
@@ -227,12 +226,11 @@
 						<div class="notes__pay">
 							<form method="POST" action="{% url 'payment' %}" enctype="multipart/form-data">
 								{% csrf_token %}
-								<input type="hidden" name="future_orders" value="{{ future_orders }}">
-								<input type="hidden" name="sum" value="{{ future_orders.sum }}">
+								<input type="hidden" name="pay_all_unpaid_orders" value="True">
 								<button type="submit" class="notes__pay_btn">Оплатить онлайн</button>
 								<div class="notes__pay_info">Вы можете оплатить услуги прямо сейчас онлайн или расплатиться  в салоне</div>
 								<div class="notes__pay_intro">Сумма оплаты</div>
-								<div class="notes__pay_sum">{{ future_orders.sum }} руб</div>
+								<div class="notes__pay_sum">{{ unpaid_orders_sum }} руб</div>
 							</form>
 						</div>
 					</div>
@@ -267,9 +265,9 @@
 		</div>
 	</div>
 	<div style="display: none;">
-	    <div class="box-modal tipsPopup popup" id="tipsModal">
-	        <div class="box-modal_close arcticmodal-close"><img src="{% static 'images/x.png' %}" alt="x"></div>
-	        <div class="">
+		<div class="box-modal tipsPopup popup" id="tipsModal">
+			<div class="box-modal_close arcticmodal-close"><img src="{% static 'images/x.png' %}" alt="x"></div>
+			<div class="">
 				<div class="popup__title tipsPopup__title">Чаевые</div>
 				<form action="#" class="tipsPopup__form">
 					<div class="tipsPopup__form_intro popup__intro">Введите сумму чаевых</div>
@@ -277,7 +275,7 @@
 					<button class="tipsPopup__btn popup__btn">Далее</button>
 				</form>
 			</div>
-	    </div>
+		</div>
 	</div>
 	<div style="display: none;">
 		<div class="box-modal reviewPopup popup" id="reviewModal">

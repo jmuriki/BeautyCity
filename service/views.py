@@ -56,6 +56,11 @@ def notes(request):
 	today = date.today()
 	client_id=request.session.get('client_id')
 	client = Client.objects.get(id=client_id)
+	unpaid_orders = Order.objects.filter(
+		client=client,
+		payment_status="not_paid",
+	)
+	unpaid_orders_sum = sum([order.procedure.price for order in unpaid_orders])
 	past_orders = Order.objects.filter(
 		client=client,
 	)
@@ -64,6 +69,7 @@ def notes(request):
 	)
 	context = {
 		"client": client,
+		"unpaid_orders_sum": unpaid_orders_sum,
 		"past_orders": past_orders,
 		"future_orders": future_orders,
 	}
@@ -157,11 +163,21 @@ def make_pay(pay_account, pay_secretkey, amount, payment_descr, ret_url):
 
 def payment(request):
 	if request.method == 'POST':
-		order_id = request.POST.get('order_id')
-		order = Order.objects.get(id=order_id)
-		payment_descr = "Оплата услуги салона красоты"
-		amount = order.procedure.price
-		save_to_cookies(request, 'paid_order_id', order_id)
+		if request.POST.get('pay_all_unpaid_orders'):
+			client_id=request.session.get('client_id')
+			client = Client.objects.get(id=client_id)
+			unpaid_orders = Order.objects.filter(
+				client=client,
+				payment_status="not_paid",
+			)
+			amount = sum([order.procedure.price for order in unpaid_orders])
+			save_to_cookies(request, 'pay_all_unpaid_orders', True)
+		else:
+			order_id = request.POST.get('order_id')
+			order = Order.objects.get(id=order_id)
+			amount = order.procedure.price
+			save_to_cookies(request, 'paid_order_id', order_id)
+		payment_descr = "Оплата услуг салона красоты BeautyCity"
 		absolute_url = request.build_absolute_uri()
 		parsed_url = urlparse(absolute_url)
 		ret_url = f'{parsed_url.scheme}://{parsed_url.netloc}/pay_result?payment_success=1'
@@ -174,10 +190,21 @@ def pay_result(request, context={}):
 	message = "Оплата не прошла."
 	if payment_res:
 		message = "Оплата прошла успешно."
-		paid_order_id = request.session.get('paid_order_id')
-		paid_order = Order.objects.get(id=paid_order_id)
-		paid_order.payment_status = 'paid'
-		paid_order.save()
+		if request.session.get('pay_all_unpaid_orders'):
+			client_id=request.session.get('client_id')
+			client = Client.objects.get(id=client_id)
+			unpaid_orders = Order.objects.filter(
+				client=client,
+				payment_status="not_paid",
+			)
+			paid_orders_ids = [order.id for order in unpaid_orders]
+		else:
+			paid_orders_ids = [request.session.get('paid_order_id')]
+		for paid_order_id in paid_orders_ids:
+			paid_order = Order.objects.get(id=paid_order_id)
+			paid_order.payment_status = 'paid'
+			paid_order.save()
+		save_to_cookies(request, 'pay_all_unpaid_orders', None)
 		save_to_cookies(request, 'paid_order_id', None)
 	save_to_cookies(request, 'payment_res', message)
 	return redirect('notes')
