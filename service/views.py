@@ -52,8 +52,9 @@ def admin(request):
 	return render(request, 'admin_front.html')
 
 
-def notes(request, client_id):
+def notes(request):
 	today = date.today()
+	client_id=request.session.get('client_id')
 	client = Client.objects.get(id=client_id)
 	past_orders = Order.objects.filter(
 		client=client,
@@ -133,7 +134,8 @@ def order(request, context=None):
 			order_hour=time_slot,
 			comment=request.POST.get('comment_input'),
 		)
-	return redirect('/notes/{}'.format(client.id))
+		save_to_cookies(request, 'client_id', client.id)
+	return redirect('notes')
 
 
 def make_pay(pay_account, pay_secretkey, amount, payment_descr, ret_url):
@@ -177,5 +179,5 @@ def pay_result(request, context={}):
 		paid_order.payment_status = 'paid'
 		paid_order.save()
 		save_to_cookies(request, 'paid_order_id', None)
-	context['payment_res'] = message
-	return render(request, 'notes.html', context)
+	save_to_cookies(request, 'payment_res', message)
+	return redirect('notes')
