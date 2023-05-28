@@ -53,7 +53,7 @@ def admin(request):
 
 
 def notes(request):
-	today = date.today()
+	current_date = date.today()
 	client_id=request.session.get('client_id')
 	client = Client.objects.get(id=client_id)
 	unpaid_orders = Order.objects.filter(
@@ -63,9 +63,11 @@ def notes(request):
 	unpaid_orders_sum = sum([order.procedure.price for order in unpaid_orders])
 	past_orders = Order.objects.filter(
 		client=client,
+		order_hour__date__date__lt=current_date,
 	)
 	future_orders = Order.objects.filter(
 		client=client,
+		order_hour__date__date__gte=current_date,
 	)
 	context = {
 		"client": client,
