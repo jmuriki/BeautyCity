@@ -65,6 +65,7 @@ class WorkDay(models.Model):
         verbose_name = 'Рабочий день'
         verbose_name_plural = 'Рабочие дни'
 
+
 class Specialist(models.Model):
     name = models.CharField(
         'Имя',
@@ -87,6 +88,13 @@ class Specialist(models.Model):
     )
     foto = models.ImageField(
         'Фотография',
+        null=True,
+        blank=True
+    )
+    role = models.CharField(
+        'Должность',
+        max_length=255,
+        db_index=True,
         null=True,
         blank=True
     )
