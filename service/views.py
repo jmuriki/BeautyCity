@@ -4,7 +4,9 @@ import uuid
 from urllib.parse import urlparse
 from datetime import date, datetime
 from yookassa import Configuration, Payment
-
+from django.conf import settings
+from django.contrib.staticfiles.finders import find
+from django.templatetags.static import static
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from beauty_city.settings import PAY_ACC, PAY_KEY
@@ -212,12 +214,19 @@ def pay_result(request, context={}):
 	return redirect('notes')
 
 
+def get_static(path):
+	if settings.DEBUG:
+		return find(path)
+	else:
+		return static(path)
+
+
 def get_masters(request):
 	salon_name = request.GET.get('salonName')
 	salon = Salon.objects.get(name=salon_name)
 	specialists = list(salon.workers.values('id', 'name', 'role', 'foto'))
 	for spec in specialists:
-		spec['foto'] = f'/media/{spec["foto"]}'
+		spec['foto'] = static(os.path.join('images', spec["foto"]))
 
 	data = {
 		'data': specialists,
