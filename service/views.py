@@ -214,19 +214,19 @@ def pay_result(request, context={}):
 	return redirect('notes')
 
 
-def get_static(path):
-	if settings.DEBUG:
-		return find(path)
-	else:
-		return static(path)
-
-
 def get_masters(request):
 	salon_name = request.GET.get('salonName')
-	salon = Salon.objects.get(name=salon_name)
-	specialists = list(salon.workers.values('id', 'name', 'role', 'foto'))
-	for spec in specialists:
-		spec['foto'] = static(os.path.join('images', spec["foto"]))
+	workers = Specialist.objects.filter(salon__name=salon_name)
+
+	specialists = []
+	for spec in workers:
+		specialist = {
+			'id': spec.id,
+			'name': spec.name,
+			'role': spec.role,
+			'foto': spec.foto.url,
+		}
+		specialists.append(specialist)
 
 	data = {
 		'data': specialists,
