@@ -29,8 +29,8 @@ class WorkDayInline(admin.TabularInline):
 
 @admin.register(Specialist)
 class SpecialistAdmin(admin.ModelAdmin):
-    fields = ('name', 'specialization', 'salon', 'foto', 'experience', )
-    list_display = ('name', 'specialization', 'salon', 'foto', 'experience',)
+    fields = ('name', 'role', 'specialization', 'salon', 'foto', 'experience', )
+    list_display = ('name', 'role', 'specialization', 'salon', 'foto', 'experience',)
     inlines = [WorkDayInline]
 
 
