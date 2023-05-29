@@ -218,7 +218,7 @@ def pay_result(request, context={}):
 def get_masters(request):
 	salon_name = request.GET.get('salonName')
 	salon = Salon.objects.get(name=salon_name)
-	print(salon)
+#TODO в specialization попадает id нужно вытянуть name
 	specialists = list(salon.workers.values('id', 'name', 'specialization', 'foto'))
 	data = {
 		'data': specialists,
