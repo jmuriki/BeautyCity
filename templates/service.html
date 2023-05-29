@@ -223,12 +223,12 @@
                 panel.hasClass('active') ? panel.show() : panel.hide()
 
             })
-            $(document).on('click', '.accordion__master_block', function (e) {
+            $(document).on('click', '.accordion__block_master', function (e) {
                 e.preventDefault()
                 const masterDiv = $(this)
                 const masterDropdown = masterDiv.parent().parent().parent().parent()
 
-                const masterIntro = masterDiv.find('.accordion__block_intro')
+                const masterIntro = masterDiv.find('.accordion__block_master')
                 const masterName = masterIntro.text()
                 const masterId = masterIntro.data('master_id')
 
@@ -236,68 +236,70 @@
 
                 const accordion_btn = masterDiv.parent().parent().find('> button.accordion')
                 accordion_btn.addClass('selected').text(masterName)
+                console.log(masterName)
                 accordion_btn.trigger('click')
             })
-                    const buildMaster = (master) => {
-                        return $(`<div class="accordion__block accordion__master_block accordion__block_master fic">
-                                <div class="accordion__block_intro accordion__block_master" data-master_id="${master.id}">${master.name}</div>
-                                <div class="accordion__block_intro accordion__block_prof" data-master_id="${master.specialization}">${master.specialization}</div>
-                              </div>`)
+
+            const buildMaster = (master) => {
+                return $(`<div class="accordion__block service__masters accordion__master_block accordion__block_master fic">
+                        <div class="accordion__block_intro accordion__block_master" data-master_id="${master.id}">${master.name}</div>
+{#                                <div class="accordion__block_intro accordion__block_prof" data-master_id="${master.specialization}">${master.specialization}</div>#}
+                      </div>`)
+            }
+
+            const renderMasters = (data) => {
+                const accordionBtn = $('<button class="accordion">(Выберите мастера)</button>')
+                const masters = data.map(buildMaster)
+                const masters_wrapper = $('<div class="panel"></div>').append(masters)
+
+
+                const masters_block = $(`<div class="service__form_block "></div>`).append(
+                    accordionBtn,
+                    masters_wrapper
+                )
+
+                $('.dropdowns_container').append(masters_block)
+            }
+
+
+            $(document).on('click', '.accordion__block_salon', function (e) {
+                const serviceDiv = $(this)
+                const serviceDropdown = serviceDiv.parent().parent().parent().parent()
+                salonName = $(this).find('> .accordion__block_intro').text()
+                salonAddress = $(this).find('> .accordion__block_address').text()
+                $(this).closest('.service__form_block').find('> button.active').addClass('selected').text(salonName + '  ' + salonAddress)
+                setTimeout(() => {
+                    $(this).closest('.service__form_block').find('> button.active').click()
+                }, 200)
+
+                 $('.service__masters').remove()
+                serviceDropdown.nextAll('.service__form_block').remove()
+
+                        $.ajax({
+                        url: '/get_masters/',
+                        type: "GET",
+                        dataType: "json",
+                        data: {
+                            'salonName': salonName,
+                            'salonAddress': salonAddress,
+                            csrfmiddlewaretoken: '{{ csrf_token }}'
+                        },
+                        success: (data) => {
+                            console.log(data.data);
+                            renderMasters(data.data)
+                        },
+                        error: (error) => {
+                            console.log(error);
+                            alert(response["responseJSON"]["error"]);
+                        }
                     }
+                )
 
-                    const renderMasters = (data) => {
-                        const accordionBtn = $('<button class="accordion">(Выберите мастера)</button>')
-                        const masters = data.map(buildMaster)
-                        const masters_wrapper = $('<div class="panel"></div>').append(masters)
+                    const accordion_btn = serviceDropdown.find('> button.active')
+                    accordion_btn.addClass('selected').text(serviceName)
+                    accordion_btn.trigger('click')
 
-
-                        const masters_block = $(`<div class="service__form_block "></div>`).append(
-                            accordionBtn,
-                            masters_wrapper
-                        )
-
-                        $('.dropdowns_container').append(masters_block)
-                    }
-
-
-                    $(document).on('click', '.accordion__block_salon', function (e) {
-                        const serviceDiv = $(this)
-                        const serviceDropdown = serviceDiv.parent().parent().parent().parent()
-                        salonName = $(this).find('> .accordion__block_intro').text()
-                        salonAddress = $(this).find('> .accordion__block_address').text()
-                        $(this).closest('.service__form_block').find('> button.active').addClass('selected').text(salonName + '  ' + salonAddress)
-                        setTimeout(() => {
-                            $(this).closest('.service__form_block').find('> button.active').click()
-                        }, 200)
-
-                        const master_selected = $('.service__masters').remove()
-                        serviceDropdown.nextAll('.service__form_block').remove()
-
-                                $.ajax({
-                                url: '/get_masters/',
-                                type: "GET",
-                                dataType: "json",
-                                data: {
-                                    'salonName': salonName,
-                                    'salonAddress': salonAddress,
-                                    csrfmiddlewaretoken: '{{ csrf_token }}'
-                                },
-                                success: (data) => {
-                                    console.log(data.data);
-                                    renderMasters(data.data)
-                                },
-                                error: (error) => {
-                                    console.log(error);
-                                    alert(response["responseJSON"]["error"]);
-                                }
-                            }
-                        )
-
-                        const accordion_btn = serviceDropdown.find('> button.active')
-                        accordion_btn.addClass('selected').text(serviceName)
-                        accordion_btn.trigger('click')
-
-                    })
+                })
 
 
 
@@ -305,7 +307,8 @@
 	$('.accordion__block_item').click(function(e) {
 		serviceName = $(this).find('> .accordion__block_item_intro').text()
 		servicePrice = $(this).find('> .accordion__block_item_address').text().replace(' ₽', '')
-		$(this).closest('.service__form_block').find('> button.active').addClass('selected').text(serviceName + '  ' +servicePrice)
+        console.log(serviceName)
+		$(this).closest('.service__form_block').find('> button.active').addClass('selected').text(serviceName + ' ' +servicePrice)
 		setTimeout(() => {
 			$(this).closest('.service__form_block').find('> button.active').click()
 		}, 200)
@@ -314,6 +317,9 @@
 	$('.accordion__block_master').click(function(e) {
 		masterName = $(this).find('> .accordion__block_master').text();
 		masterProf = $(this).find('> .accordion__block_prof').text();
+
+        console.log(masterName)
+
 		$(this).closest('.service__form_block').find('> button.active').addClass('selected').text(masterName + ' - ' + masterProf)
 		setTimeout(() => {
 			$(this).closest('.service__form_block').find('> button.active').click()
