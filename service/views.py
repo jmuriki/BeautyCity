@@ -222,7 +222,6 @@ def get_masters(request):
 	for spec in specialists:
 		spec['foto'] = f'/media/{spec["foto"]}'
 
-	print(specialists)
 	data = {
 		'data': specialists,
 	}
