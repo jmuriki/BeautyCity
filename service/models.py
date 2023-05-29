@@ -90,6 +90,15 @@ class Specialist(models.Model):
         null=True,
         blank=True
     )
+
+    role = models.CharField(
+        'Должность',
+        max_length=255,
+        db_index=True,
+        null=True,
+        blank=True
+    )
+
     experience = models.CharField(
         'Стаж работы',
         max_length=255,

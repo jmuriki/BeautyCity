@@ -219,7 +219,7 @@ def get_masters(request):
 	salon_name = request.GET.get('salonName')
 	salon = Salon.objects.get(name=salon_name)
 # в specialization попадает id нужно вытянуть name
-	specialists = list(salon.workers.values('id', 'name', 'specialization', 'foto'))
+	specialists = list(salon.workers.values('id', 'name', 'role', 'foto'))
 	data = {
 		'data': specialists,
 	}
