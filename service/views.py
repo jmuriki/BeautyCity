@@ -220,7 +220,7 @@ def get_masters(request):
 	salon = Salon.objects.get(name=salon_name)
 	specialists = list(salon.workers.values('id', 'name', 'role', 'foto'))
 	for spec in specialists:
-		spec['foto'] = f'/media/{spec["foto"]}'
+		spec['foto'] = f'/static/images/{spec["foto"]}'
 
 	data = {
 		'data': specialists,
