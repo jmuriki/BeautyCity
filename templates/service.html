@@ -33,6 +33,7 @@
 				</div>
 				
 				<form class="service__form">
+                <div class="dropdowns_container">
 					<div class="service__form_block">
 						<button class="accordion">(Выберите салон)</button>
 						<div class="panel">
@@ -53,6 +54,7 @@
 						</div>
 					</div>
 					<div class="service__form_block">
+
 						<button class="accordion">(Выберите услугу)</button>
 						<div class="panel">
 
@@ -81,26 +83,9 @@
 							{% endif %}
 
 						</div>
+						</div>
 					</div>
-{#					<div class="service__form_block">#}
-{#						<button class="accordion">(Выберите мастера)</button>#}
-{#						<div class="panel">#}
-{##}
-{#							{% if masters %}#}
-{##}
-{#								{% for master in masters %}#}
-{##}
-{#									<div class="accordion__block accordion__block_master fic">#}
-{#										<div class="accordion__block_master">{{ master.name }}</div>#}
-{#										<div class="accordion__block_prof">{{ master.specialization }}</div>#}
-{#									</div>#}
-{##}
-{#								{% endfor %}#}
-{##}
-{#							{% endif %}#}
-{##}
-{#						</div>#}
-{#					</div>#}
+
 				</form>
 			</div>
 		</div>
@@ -206,26 +191,20 @@
 
 		new AirDatepicker('#datepickerHere')
 
-		var acc = document.getElementsByClassName("accordion");
-		
-		var i;
-
-		for (i = 0; i < acc.length; i++) {
-			acc[i].addEventListener("click", function(e) {
-				e.preventDefault()
-				this.classList.toggle("active");
-				var panel = $(this).next()
-				panel.hasClass('active') ?  
-					 panel.removeClass('active')
-					: 
-					 panel.addClass('active')
-		});
-	}
-
 	let salonName, salonAddress,
 		serviceName, servicePrice,
 		masterName,masterProf,
 		timeBlock, dateBlock, monthBlock, yearBlock;
+
+    $(document).on('click', '.accordion', function (e) {
+        e.preventDefault()
+        const accordion = e.target
+        accordion.classList.toggle("active");
+        const panel = $(accordion).next()
+        panel.toggleClass('active')
+        panel.hasClass('active') ? panel.show() : panel.hide()
+
+    })
 
     $(document).on('click', '.accordion__block_master', function (e) {
         e.preventDefault()
