@@ -5,7 +5,7 @@ from urllib.parse import urlparse
 from datetime import date, datetime
 from yookassa import Configuration, Payment
 
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from beauty_city.settings import PAY_ACC, PAY_KEY
 from service.models import (
@@ -210,3 +210,16 @@ def pay_result(request, context={}):
 		save_to_cookies(request, 'paid_order_id', None)
 	save_to_cookies(request, 'payment_res', message)
 	return redirect('notes')
+
+
+def get_masters(request):
+	salon_name = request.GET.get('salonName')
+	salon = Salon.objects.get(name=salon_name)
+	specialists = list(salon.workers.values('id', 'name', 'role', 'foto'))
+	for spec in specialists:
+		spec['foto'] = f'/media/{spec["foto"]}'
+
+	data = {
+		'data': specialists,
+	}
+	return JsonResponse(data)
