@@ -235,6 +235,7 @@
 
                 const accordion_btn = masterDiv.parent().parent().find('> button.accordion')
                 accordion_btn.addClass('selected').text(masterName)
+
                 accordion_btn.trigger('click')
             })
 
@@ -307,7 +308,6 @@
 	$('.accordion__block_item').click(function(e) {
 		serviceName = $(this).find('> .accordion__block_item_intro').text()
 		servicePrice = $(this).find('> .accordion__block_item_address').text().replace(' ₽', '')
-        console.log(serviceName)
 		$(this).closest('.service__form_block').find('> button.active').addClass('selected').text(serviceName + ' ' +servicePrice)
 		setTimeout(() => {
 			$(this).closest('.service__form_block').find('> button.active').click()
@@ -318,9 +318,9 @@
 		masterName = $(this).find('> .accordion__block_master').text();
 		masterProf = $(this).find('> .accordion__block_prof').text();
 
-        console.log(masterName)
-
 		$(this).closest('.service__form_block').find('> button.active').addClass('selected').text(masterName + ' - ' + masterProf)
+
+
 		setTimeout(() => {
 			$(this).closest('.service__form_block').find('> button.active').click()
 		}, 200)
