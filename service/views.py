@@ -218,8 +218,11 @@ def pay_result(request, context={}):
 def get_masters(request):
 	salon_name = request.GET.get('salonName')
 	salon = Salon.objects.get(name=salon_name)
-# в specialization попадает id нужно вытянуть name
 	specialists = list(salon.workers.values('id', 'name', 'role', 'foto'))
+	for spec in specialists:
+		spec['foto'] = f'/media/{spec["foto"]}'
+
+	print(specialists)
 	data = {
 		'data': specialists,
 	}

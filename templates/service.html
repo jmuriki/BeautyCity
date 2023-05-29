@@ -239,8 +239,9 @@
             })
 
             const buildMaster = (master) => {
-                role = master.role || " "
+                let role = master.role || " "
                 return $(`<div class="accordion__block service__masters accordion__block_master fic">
+                        <img src="${master.foto}" alt="avatar" class="accordion__block_img">
                         <div class="accordion__block_intro accordion__block_master">${master.name}</div>
                         <div class="accordion__block_intro accordion__block_prof">${role}</div>
                       </div>`)
