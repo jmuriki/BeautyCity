@@ -251,7 +251,7 @@
                 const masters_wrapper = $('<div class="panel"></div>').append(masters)
 
 
-                const masters_block = $(`<div class="service__form_block "></div>`).append(
+                const masters_block = $(`<div class="service__form_block service__masters"></div>`).append(
                     accordionBtn,
                     masters_wrapper
                 )
@@ -270,7 +270,7 @@
                     $(this).closest('.service__form_block').find('> button.active').click()
                 }, 200)
 
-                 $('.service__masters').remove()
+                $('.service__masters').remove()
                 serviceDropdown.nextAll('.service__form_block').remove()
 
                         $.ajax({
